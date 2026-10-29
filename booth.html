@@ -8,79 +8,65 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&display=swap">
 <style>
-/* 부스용 한 장 안내: 5·18 열흘 소개(시간 띠) → 미션 4개로 알아보는 내용(역사 그림) → 앱 화면 → 좌우 QR. A4 세로 한 장 */
+/* 부스용 한 장 안내: 제목·소개 → 앱 화면 카드 2×2 (번호·제목·설명) → 학생·교사 QR 카드 좌우. A4 세로 한 장 */
 :root {
-  --paper: #eef3ee; --card: #fbfcf8; --ink: #1b2c24; --muted: #56685e; --line: #cfdad2;
-  --leaf: #2d6a4c; --leaf-soft: #dcebe1; --stamp: #b3372b; --stamp-soft: #f6e1dc; --night: #17221c;
+  --bg: #f7f1e3; --card: #fffdf7; --ink: #2a2620; --muted: #6b6255; --line: #e6dcc6;
+  --leaf: #2d6a4c; --leaf-soft: #e4efe6; --stamp: #b3372b; --stamp-soft: #f8e4df; --gold: #c98a1a; --gold-soft: #f6e7c4;
   --display: "Gowun Batang", "Nanum Myeongjo", serif;
   --body: "Gowun Dodum", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
   color-scheme: light;
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; }
-body { background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.55; word-break: keep-all; }
+body { background: #e9e3d4; color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.55; word-break: keep-all; }
 h1, h2, h3 { font-family: var(--display); margin: 0; line-height: 1.25; }
-p, ul, ol { margin: 0; }
-.sheet { width: 210mm; min-height: 297mm; margin: 24px auto; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 8mm 11mm 7mm; display: grid; gap: 4mm; align-content: start; }
+p { margin: 0; }
+.sheet { width: 210mm; min-height: 297mm; margin: 24px auto; background: var(--bg); border-radius: 18px; padding: 10mm 11mm 7mm; display: grid; gap: 5mm; align-content: start; }
 
-.hero { background: var(--night); color: #f3f1ea; border-radius: 5mm; padding: 5mm 8mm 4.5mm; display: grid; gap: 2mm; text-align: center; }
-.hero .eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .06em; color: #f0a89c; }
-.hero h1 { font-size: 30px; }
-.hero h1 em { font-style: normal; color: #ff8a78; }
-.hero .app { font-family: var(--display); font-size: 17px; color: #cfe3d6; }
-.hero .app b { color: #fff; }
-.line { display: grid; grid-template-columns: repeat(3, 1fr); position: relative; margin-top: 1mm; }
-.line::before { content: ""; position: absolute; left: 16.6%; right: 16.6%; top: 7px; height: 2px; background: #5d7366; }
-.line div { display: grid; justify-items: center; gap: 2px; position: relative; }
-.line i { width: 16px; height: 16px; border-radius: 50%; background: #ff8a78; border: 3px solid var(--night); box-shadow: 0 0 0 2px #ff8a78; }
-.line b { font-family: var(--display); font-size: 15px; color: #fff; }
-.line span { font-size: 12.5px; color: #cfd8d2; }
+.head { display: grid; gap: 2.4mm; justify-items: center; text-align: center; }
+.title { display: flex; align-items: center; gap: 3mm; }
+.title svg { width: 13mm; height: 13mm; }
+.title h1 { font-size: 40px; color: var(--stamp); letter-spacing: -.01em; }
+.lead { font-size: 16.5px; }
+.lead b { color: var(--stamp); }
+.chips { display: flex; gap: 2.4mm; flex-wrap: wrap; justify-content: center; }
+.chips span { font-size: 13.5px; font-weight: 700; padding: 1mm 4mm; border-radius: 999px; background: var(--gold-soft); color: #7a5410; }
+.days { display: flex; gap: 2mm; align-items: center; font-size: 13px; color: var(--muted); }
+.days b { color: var(--ink); font-family: var(--display); }
+.days i { width: 6mm; height: 1.5px; background: #c9b996; display: inline-block; }
 
-.sec-t { display: flex; align-items: baseline; gap: 10px; margin-bottom: 3mm; flex-wrap: wrap; }
-.sec-t h2 { font-size: 20px; }
-.sec-t p { font-size: 13px; color: var(--muted); }
+.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 4.5mm; }
+.c { background: var(--card); border: 1.5px solid var(--line); border-radius: 4mm; padding: 3mm; display: grid; gap: 2.4mm; align-content: start; box-shadow: 0 1px 0 rgba(0,0,0,.04); }
+.shot { aspect-ratio: 16 / 10; border-radius: 2.6mm; overflow: hidden; border: 1px solid var(--line); background: #eef3ee; }
+.shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.c h3 { font-size: 18px; display: flex; align-items: center; gap: 2mm; color: var(--leaf); padding: 0 1mm; }
+.c h3 .n { width: 7mm; height: 7mm; border-radius: 50%; background: var(--gold); color: #fff; display: grid; place-items: center; font-size: 14px; flex: none; }
+.c p { font-size: 13.5px; color: var(--muted); padding: 0 1mm 1mm; line-height: 1.5; }
 
-.missions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3.5mm; list-style: none; padding: 0; }
-.mc { border: 1px solid var(--line); border-radius: 3.5mm; overflow: hidden; background: #fff; display: grid; grid-template-rows: auto 1fr; }
-.mc figure { margin: 0; position: relative; aspect-ratio: 16 / 10; background: var(--night); }
-.mc img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.mc .no { position: absolute; left: 2mm; top: 2mm; background: var(--stamp); color: #fff; font-family: var(--display); font-weight: 700; font-size: 12px; padding: 1px 8px; border-radius: 999px; }
-.mc .body { padding: 2.6mm 3mm 3mm; display: grid; gap: 1.6mm; align-content: start; }
-.mc h3 { font-size: 16.5px; }
-.mc ul { padding-left: 15px; font-size: 12.5px; display: grid; gap: 0; }
-.mc .goal { font-size: 12px; color: var(--leaf); background: var(--leaf-soft); border-radius: 2mm; padding: 1.4mm 2mm; line-height: 1.45; }
-
-.phones { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3.5mm; }
-.ph { margin: 0; display: grid; gap: 5px; justify-items: center; text-align: center; }
-.frame { width: 25mm; aspect-ratio: 480 / 862; border: 2mm solid #1d2722; border-radius: 4.4mm; overflow: hidden; background: #1d2722; box-shadow: 0 2px 6px rgba(0,0,0,.12); }
-.frame img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; border-radius: 2.4mm; }
-.ph b { font-size: 13.5px; display: block; line-height: 1.35; }
-.ph small { font-size: 11.5px; color: var(--muted); line-height: 1.4; display: block; }
-
-.qrs { border-top: 2px dashed var(--line); padding-top: 3mm; display: grid; grid-template-columns: auto 1fr auto; gap: 6mm; align-items: center; }
-.q { display: grid; gap: 4px; justify-items: center; text-align: center; }
-.qr { width: 27mm; height: 27mm; background: #fff; padding: 2mm; border-radius: 2.4mm; border: 2px solid var(--leaf); }
-.q.tea .qr { border-color: var(--stamp); }
+.qrs { display: grid; grid-template-columns: 1fr 1fr; gap: 4.5mm; }
+.q { border-radius: 4mm; padding: 3.5mm 5mm; display: flex; align-items: center; gap: 5mm; border: 1.5px solid; }
+.q.stu { background: var(--leaf-soft); border-color: #b9d5c1; }
+.q.tea { background: var(--stamp-soft); border-color: #e7bdb4; }
+.qr { width: 27mm; height: 27mm; background: #fff; padding: 1.6mm; border-radius: 2mm; flex: none; }
 .qr img, .qr canvas { width: 100% !important; height: 100% !important; display: block; image-rendering: pixelated; }
-.q b { font-size: 15px; } .q.stu b { color: var(--leaf); } .q.tea b { color: var(--stamp); }
-.mid { text-align: center; display: grid; gap: 4px; }
-.mid h3 { font-size: 19px; }
-.mid h3 em { font-style: normal; color: var(--stamp); }
-.mid p { font-size: 13px; color: var(--muted); }
+.q .who { display: flex; align-items: center; gap: 2mm; }
+.q .who svg { width: 8mm; height: 8mm; }
+.q h2 { font-size: 22px; }
+.stu h2 { color: var(--leaf); } .tea h2 { color: var(--stamp); }
+.q p { font-size: 13.5px; color: var(--muted); margin-top: 1mm; }
 .foot { font-size: 11px; color: var(--muted); text-align: center; }
 
 .printbar { width: 210mm; margin: 16px auto 0; display: flex; justify-content: flex-end; }
 .printbar button { font: inherit; font-weight: 700; padding: 8px 18px; border-radius: 999px; border: 2px solid var(--leaf); background: var(--leaf); color: #fff; cursor: pointer; }
 @media screen and (max-width: 780px) {
-  .sheet, .printbar { width: auto; margin-left: 16px; margin-right: 16px; } .sheet { min-height: 0; padding: 16px; }
-  .hero h1 { font-size: 26px; } .missions, .phones { grid-template-columns: 1fr 1fr; }
-  .qrs { grid-template-columns: 1fr 1fr; } .mid { grid-column: 1 / -1; grid-row: 1; }
+  .sheet, .printbar { width: auto; margin-left: 16px; margin-right: 16px; } .sheet { min-height: 0; padding: 18px 16px; }
+  .title h1 { font-size: 30px; } .cards, .qrs { grid-template-columns: 1fr; } .days { flex-wrap: wrap; justify-content: center; }
 }
 @page { size: A4 portrait; margin: 0; }
 @media print {
   body { background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .printbar { display: none; }
-  .sheet { margin: 0; border: 0; border-radius: 0; width: 210mm; height: 297mm; overflow: hidden; }
+  .sheet { margin: 0; border-radius: 0; width: 210mm; height: 297mm; overflow: hidden; }
 }
 </style>
 </head>
@@ -88,52 +74,39 @@ p, ul, ol { margin: 0; }
 <div class="printbar"><button type="button" onclick="window.print()">인쇄하기</button></div>
 
 <main class="sheet">
-  <header class="hero">
-    <p class="eyebrow">5·18민주화운동을 알아보는 탐구 활동 · 초등 5~6학년</p>
-    <h1>1980년 5월, 광주의 <em>열흘</em>을<br>기록으로 만나요</h1>
-    <p class="app"><b>오월의 기록 탐험대</b> · 자료 속 단서를 찾아 5·18의 흐름과 의미를 알아봐요</p>
-    <div class="line" aria-label="5·18민주화운동 열흘의 흐름">
-      <div><i></i><b>5월 18일</b><span>전남대 앞에서 시작</span></div>
-      <div><i></i><b>5월 21일</b><span>계엄군의 집단 발포</span></div>
-      <div><i></i><b>5월 27일</b><span>계엄군의 도청 진압</span></div>
+  <header class="head">
+    <div class="title">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="23" fill="#e4efe6"/><g fill="#fff" stroke="#2d6a4c" stroke-width="2"><circle cx="24" cy="15" r="6"/><circle cx="16" cy="21" r="6"/><circle cx="32" cy="21" r="6"/><circle cx="19" cy="29" r="6"/><circle cx="29" cy="29" r="6"/></g><circle cx="24" cy="23" r="3" fill="#c98a1a"/><path d="M24 30v12" stroke="#2d6a4c" stroke-width="2.4" stroke-linecap="round"/></svg>
+      <h1>오월의 기록 탐험대</h1>
     </div>
+    <p class="lead">기록연구원이 되어 자료 속 단서를 찾으며 <b>5·18민주화운동</b>을 알아보는 웹앱</p>
+    <div class="chips"><span>초등 5~6학년</span><span>약 25~30분</span><span>설치 없이 웹으로</span></div>
+    <p class="days" aria-label="1980년 5월 광주의 열흘"><b>1980. 5. 18</b> 전남대 앞에서 시작 <i></i> <b>5. 21</b> 계엄군의 집단 발포 <i></i> <b>5. 27</b> 도청 진압</p>
   </header>
 
-  <section>
-    <div class="sec-t"><h2>미션 4개로 5·18을 알아봐요</h2><p>그림 자료와 쉬운 글을 읽고, 문제를 풀며 스스로 답을 찾아요.</p></div>
-    <ol class="missions">
-      <li class="mc"><figure><img src="images/bus-protest.webp" alt="버스를 앞세워 함께 맞선 시민들"><span class="no">미션 1</span></figure>
-        <div class="body"><h3>오월의 시간 찾기</h3><ul><li>오랜 독재와 꺾인 희망</li><li>학교 앞에서 시작된 열흘</li><li>함께 맞선 시민들</li></ul><p class="goal">왜 일어났는지, 열흘이 어떻게 흘러갔는지 알아요.</p></div></li>
-      <li class="mc"><figure><img src="images/reporter.webp" alt="광주의 모습을 기록하는 기자"><span class="no">미션 2</span></figure>
-        <div class="body"><h3>기록 속 단서 찾기</h3><ul><li>외로운 섬이 된 광주</li><li>더는 거짓을 쓸 수 없다</li><li>세상에 전해진 영상</li></ul><p class="goal">진실을 알린 기록에서 근거 문장을 찾아요.</p></div></li>
-      <li class="mc"><figure><img src="images/rice-sharing.webp" alt="주먹밥을 나누는 시민들"><span class="no">미션 3</span></figure>
-        <div class="body"><h3>함께한 시민들</h3><ul><li>주먹밥과 헌혈</li><li>스스로 지킨 질서</li><li>시민이 만든 신문</li></ul><p class="goal">시민들의 행동에 담긴 뜻을 생각해요.</p></div></li>
-      <li class="mc"><figure><img src="images/candlelight.webp" alt="촛불을 든 사람들"><span class="no">미션 4</span></figure>
-        <div class="body"><h3>오늘의 민주주의</h3><ul><li>'사태'라고 불린 시간</li><li>이름을 되찾기까지</li><li>오늘 우리가 이어 갈 것</li></ul><p class="goal">진실이 밝혀진 과정과 우리의 실천을 생각해요.</p></div></li>
-    </ol>
-  </section>
-
-  <section>
-    <div class="sec-t"><h2>이렇게 탐험해요</h2><p>휴대폰이나 태블릿으로 약 25~30분, 로그인 없이 번호와 별명으로 들어가요.</p></div>
-    <div class="phones">
-      <figure class="ph"><div class="frame"><img src="images/booth/guide.jpg" alt="안내 캐릭터 봄이가 탐험을 소개하는 화면"></div>
-        <figcaption><b>봄이와 함께 출발</b><small>목소리로 읽어 주는 안내</small></figcaption></figure>
-      <figure class="ph"><div class="frame"><img src="images/booth/mission.jpg" alt="주먹밥과 헌혈 자료를 그림과 함께 읽는 미션 화면"></div>
-        <figcaption><b>역사 자료 읽기</b><small>그림, 쉬운 글, 들려주기</small></figcaption></figure>
-      <figure class="ph"><div class="frame"><img src="images/booth/map.jpg" alt="미션 1, 2를 마치고 스탬프를 받은 미션 지도 화면"></div>
-        <figcaption><b>문제 풀고 스탬프</b><small>OX·순서·근거 찾기</small></figcaption></figure>
-      <figure class="ph"><div class="frame"><img src="images/booth/postcard.jpg" alt="이어 갈 오월 정신을 고르고 기억할 것을 쓰는 엽서 화면"></div>
-        <figcaption><b>기억 엽서 남기기</b><small>이어 갈 오월 정신과 약속</small></figcaption></figure>
-    </div>
+  <section class="cards">
+    <article class="c"><div class="shot"><img src="images/booth/card-map.jpg" alt="미션 1, 2를 마치고 스탬프를 받은 미션 지도 화면"></div>
+      <h3><span class="n">1</span>열흘을 따라가는 미션 4개</h3>
+      <p>오월의 시간, 기록 속 단서, 함께한 시민들, 오늘의 민주주의 순서로 5·18을 탐험해요.</p></article>
+    <article class="c"><div class="shot"><img src="images/booth/card-source.jpg" alt="버스와 택시가 함께 시위한 장면 그림과 설명 글이 있는 자료 화면"></div>
+      <h3><span class="n">2</span>그림으로 만나는 역사 자료</h3>
+      <p>그 시절 장면 그림과 쉬운 글을 읽고, 들려주기로 자료를 들을 수 있어요.</p></article>
+    <article class="c"><div class="shot"><img src="images/booth/card-quiz.jpg" alt="자료를 읽고 OX 퀴즈를 푸는 화면"></div>
+      <h3><span class="n">3</span>자료 속 단서로 문제 풀기</h3>
+      <p>OX, 순서 맞추기, 근거 찾기 문제를 풀며 스탬프를 모아요.</p></article>
+    <article class="c"><div class="shot"><img src="images/booth/card-postcard.jpg" alt="이어 갈 오월 정신과 실천 약속을 담은 기억 엽서 화면"></div>
+      <h3><span class="n">4</span>오월을 기억하는 엽서</h3>
+      <p>이어 갈 오월 정신을 고르고, 기억할 것과 실천 약속을 엽서로 남겨요.</p></article>
   </section>
 
   <section class="qrs" aria-label="체험 QR">
-    <div class="q stu"><div class="qr" id="qrStu"></div><b>학생으로 체험하기</b></div>
-    <div class="mid"><h3>QR을 찍고 <em>오월의 기록</em>을 따라가 보세요</h3><p>교사로 학급방을 만들고, 학생으로 그 학급코드를 넣어 들어가면 함께 체험할 수 있어요.</p></div>
-    <div class="q tea"><div class="qr" id="qrTea"></div><b>교사로 체험하기</b></div>
+    <div class="q stu"><div class="qr" id="qrStu"></div>
+      <div><div class="who"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="11" r="6" fill="#2d6a4c"/><path d="M5 29c1-7 5.5-10 11-10s10 3 11 10z" fill="#2d6a4c"/></svg><h2>학생</h2></div><p>찍고 번호와 별명으로<br>체험해 보세요</p></div></div>
+    <div class="q tea"><div class="qr" id="qrTea"></div>
+      <div><div class="who"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="10" r="6" fill="#b3372b"/><path d="M5 29c1-7 5.5-10 11-10s10 3 11 10z" fill="#b3372b"/><rect x="20" y="20" width="9" height="7" rx="1" fill="#fff" stroke="#b3372b" stroke-width="1.6"/></svg><h2>교사</h2></div><p>구글 로그인 후<br>학급방을 만들어 체험</p></div></div>
   </section>
 
-  <p class="foot">그림은 실제 사건을 바탕으로 생성형 AI로 제작한 이미지입니다. · 학생은 실명 대신 별명을 써요. 교사 화면은 구글 로그인이 필요해요.</p>
+  <p class="foot">그림은 실제 사건을 바탕으로 생성형 AI로 제작한 이미지입니다. · 학생은 실명 대신 별명을 써요.</p>
 </main>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
