@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&display=swap">
 <style>
-/* 부스용 한 장 안내: 앱 소개 → 미션 4개 → 학생·교사 화면 기능 → 아래쪽 작은 QR 두 개. A4 세로 한 장 */
+/* 부스용 한 장 안내: 소개 → 학생 화면 4장(휴대폰 틀) → 교사 화면 + 특징 → 맨 아래 좌우 QR. A4 세로 한 장 */
 :root {
   --paper: #eef3ee; --card: #fbfcf8; --ink: #1b2c24; --muted: #56685e; --line: #cfdad2;
   --leaf: #2d6a4c; --leaf-soft: #dcebe1; --stamp: #b3372b; --stamp-soft: #f6e1dc;
@@ -18,48 +18,68 @@
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; }
-body { background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.6; word-break: keep-all; }
+body { background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.55; word-break: keep-all; }
 h1, h2, h3 { font-family: var(--display); margin: 0; line-height: 1.25; }
-p, ul, ol { margin: 0; }
-.sheet { max-width: 210mm; margin: 24px auto; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 13mm 14mm 10mm; display: grid; gap: 20px; }
-.head { display: grid; gap: 8px; text-align: center; }
-.eyebrow { font-size: 14px; font-weight: 700; color: var(--stamp); letter-spacing: .04em; }
-.head h1 { font-size: 40px; }
+p, ul { margin: 0; }
+.sheet { width: 210mm; min-height: 297mm; margin: 24px auto; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 10mm 12mm 9mm; display: grid; gap: 5mm; align-content: start; }
+
+.head { display: grid; gap: 5px; text-align: center; }
+.eyebrow { font-size: 13px; font-weight: 700; color: var(--stamp); letter-spacing: .04em; }
+.head h1 { font-size: 36px; }
 .head h1 span { color: var(--stamp); }
-.lead { font-size: 18px; }
-.meta { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
-.meta span { font-size: 14px; font-weight: 700; padding: 2px 12px; border-radius: 999px; background: var(--leaf-soft); color: var(--leaf); }
-.sec h2 { font-size: 20px; margin-bottom: 10px; }
-.missions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; list-style: none; padding: 0; }
-.missions li { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; display: grid; gap: 4px; align-content: start; }
-.missions .n { font-family: var(--display); font-weight: 700; color: var(--stamp); font-size: 14px; }
-.missions b { font-family: var(--display); font-size: 17px; line-height: 1.3; }
-.missions small { font-size: 13px; color: var(--muted); line-height: 1.5; }
-.two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.box { border-radius: 14px; padding: 14px 16px; display: grid; gap: 8px; align-content: start; }
-.box.stu { background: var(--leaf-soft); } .box.tea { background: var(--stamp-soft); }
-.box h3 { font-size: 18px; }
-.stu h3 { color: var(--leaf); } .tea h3 { color: var(--stamp); }
-.box ul { padding-left: 20px; font-size: 15px; display: grid; gap: 2px; }
-.qrs { border-top: 2px dashed var(--line); padding-top: 14px; display: flex; justify-content: center; gap: 36px; flex-wrap: wrap; }
-.q { display: flex; gap: 12px; align-items: center; }
-.qr { width: 96px; height: 96px; background: #fff; padding: 6px; border-radius: 8px; border: 1px solid var(--line); flex: none; }
-.qr img, .qr canvas { width: 84px !important; height: 84px !important; display: block; }
-.q b { display: block; font-size: 16px; }
-.q.stu b { color: var(--leaf); } .q.tea b { color: var(--stamp); }
-.q span { font-size: 13px; color: var(--muted); }
-.foot { font-size: 12px; color: var(--muted); text-align: center; }
-.printbar { max-width: 210mm; margin: 16px auto 0; display: flex; justify-content: flex-end; }
+.lead { font-size: 16px; }
+.meta { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin-top: 2px; }
+.meta span { font-size: 12.5px; font-weight: 700; padding: 1px 10px; border-radius: 999px; background: var(--leaf-soft); color: var(--leaf); }
+
+.sec-t { display: flex; align-items: baseline; gap: 10px; margin-bottom: 3mm; }
+.sec-t h2 { font-size: 19px; }
+.sec-t .tag { font-size: 12px; font-weight: 700; padding: 1px 10px; border-radius: 999px; color: #fff; }
+.sec-t p { font-size: 13px; color: var(--muted); }
+.stu .tag { background: var(--leaf); } .tea .tag { background: var(--stamp); }
+
+.phones { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4mm; }
+.ph { display: grid; gap: 6px; justify-items: center; text-align: center; }
+.frame { width: 100%; max-width: 40mm; aspect-ratio: 480 / 862; border: 2.4mm solid #1d2722; border-radius: 5mm; overflow: hidden; background: #1d2722; box-shadow: 0 2px 6px rgba(0,0,0,.12); }
+.frame img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; border-radius: 2.6mm; }
+.ph b { font-size: 14px; display: block; line-height: 1.35; }
+.ph b i { font-style: normal; color: var(--stamp); font-family: var(--display); margin-right: 3px; }
+.ph small { font-size: 12px; color: var(--muted); line-height: 1.45; display: block; }
+
+.tea-row { display: grid; grid-template-columns: 1.25fr 1fr; gap: 5mm; align-items: center; }
+.browser { border: 1px solid var(--line); border-radius: 3mm; overflow: hidden; background: #fff; box-shadow: 0 2px 6px rgba(0,0,0,.10); }
+.browser .bar { height: 6mm; background: #e4ebe6; display: flex; gap: 1.4mm; align-items: center; padding: 0 2.4mm; }
+.browser .bar i { width: 2mm; height: 2mm; border-radius: 50%; background: #c3cfc7; }
+.browser img { width: 100%; display: block; }
+.feat { list-style: none; padding: 0; display: grid; gap: 3mm; }
+.feat li { display: grid; grid-template-columns: 9mm 1fr; gap: 3mm; align-items: start; }
+.feat .ic { width: 9mm; height: 9mm; border-radius: 50%; background: var(--stamp-soft); display: grid; place-items: center; }
+.feat .ic svg { width: 5mm; height: 5mm; }
+.feat b { display: block; font-size: 14.5px; }
+.feat span { font-size: 12.5px; color: var(--muted); }
+
+.qrs { border-top: 2px dashed var(--line); padding-top: 4mm; display: grid; grid-template-columns: auto 1fr auto; gap: 6mm; align-items: center; }
+.q { display: grid; gap: 4px; justify-items: center; text-align: center; }
+.qr { width: 30mm; height: 30mm; background: #fff; padding: 2mm; border-radius: 2.4mm; border: 2px solid var(--leaf); }
+.q.tea .qr { border-color: var(--stamp); }
+.qr img, .qr canvas { width: 100% !important; height: 100% !important; display: block; image-rendering: pixelated; }
+.q b { font-size: 15px; } .q.stu b { color: var(--leaf); } .q.tea b { color: var(--stamp); }
+.mid { text-align: center; display: grid; gap: 4px; }
+.mid h3 { font-size: 18px; }
+.mid p { font-size: 13px; color: var(--muted); }
+.foot { font-size: 11px; color: var(--muted); text-align: center; }
+
+.printbar { width: 210mm; margin: 16px auto 0; display: flex; justify-content: flex-end; }
 .printbar button { font: inherit; font-weight: 700; padding: 8px 18px; border-radius: 999px; border: 2px solid var(--leaf); background: var(--leaf); color: #fff; cursor: pointer; }
-@media (max-width: 680px) {
-  .sheet { margin: 12px 16px; padding: 20px 16px; } .head h1 { font-size: 32px; }
-  .missions { grid-template-columns: 1fr 1fr; } .two { grid-template-columns: 1fr; } .printbar { margin: 12px 16px 0; }
+@media screen and (max-width: 780px) {
+  .sheet, .printbar { width: auto; margin-left: 16px; margin-right: 16px; } .sheet { min-height: 0; padding: 20px 16px; }
+  .phones { grid-template-columns: 1fr 1fr; } .tea-row { grid-template-columns: 1fr; }
+  .qrs { grid-template-columns: 1fr 1fr; } .mid { grid-column: 1 / -1; grid-row: 1; }
 }
-@page { size: A4 portrait; margin: 8mm; }
+@page { size: A4 portrait; margin: 0; }
 @media print {
   body { background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .printbar { display: none; }
-  .sheet { margin: 0; border: 0; border-radius: 0; padding: 4mm 6mm; max-width: none; }
+  .sheet { margin: 0; border: 0; border-radius: 0; width: 210mm; height: 297mm; overflow: hidden; }
 }
 </style>
 </head>
@@ -70,47 +90,43 @@ p, ul, ol { margin: 0; }
   <header class="head">
     <p class="eyebrow">5·18민주화운동 탐구 활동 · 초등 5~6학년</p>
     <h1>오월의 <span>기록</span> 탐험대</h1>
-    <p class="lead">자료 속 단서를 찾아 1980년 5월 광주의 열흘을 따라가고,<br>나만의 오월 기록장을 완성하는 탐구 앱이에요.</p>
-    <div class="meta"><span>약 25~30분</span><span>미션 4개</span><span>기억 엽서 만들기</span><span>교사 실시간 확인</span></div>
+    <p class="lead">자료 속 단서를 찾아 1980년 5월 광주의 열흘을 따라가고, 나만의 오월 기록장을 완성해요.</p>
+    <div class="meta"><span>약 25~30분</span><span>미션 4개</span><span>로그인 없이 번호·별명으로 입장</span><span>교사 실시간 확인</span></div>
   </header>
 
-  <section class="sec">
-    <h2>미션 4개</h2>
-    <ol class="missions">
-      <li><span class="n">미션 1</span><b>오월의 시간 찾기</b><small>OX 퀴즈와 순서 맞추기로 열흘의 흐름을 따라가요.</small></li>
-      <li><span class="n">미션 2</span><b>기록 속 단서 찾기</b><small>고립된 광주의 진실을 알린 기록을 살펴요.</small></li>
-      <li><span class="n">미션 3</span><b>함께한 시민들</b><small>주먹밥, 헌혈, 스스로 지킨 질서를 만나요.</small></li>
-      <li><span class="n">미션 4</span><b>오늘의 민주주의</b><small>이름을 되찾기까지의 과정과 우리가 이어 갈 것을 생각해요.</small></li>
-    </ol>
+  <section class="stu">
+    <div class="sec-t"><span class="tag">학생</span><h2>휴대폰·태블릿으로 탐험해요</h2></div>
+    <div class="phones">
+      <figure class="ph" style="margin:0"><div class="frame"><img src="images/booth/guide.jpg" alt="안내 캐릭터 봄이가 탐험을 소개하는 화면"></div>
+        <figcaption><b><i>1</i>봄이와 함께 시작</b><small>안내 캐릭터가 말을 걸고 목소리로 읽어 줘요.</small></figcaption></figure>
+      <figure class="ph" style="margin:0"><div class="frame"><img src="images/booth/mission.jpg" alt="주먹밥과 헌혈 자료를 그림과 함께 읽는 미션 화면"></div>
+        <figcaption><b><i>2</i>그림 자료 읽기</b><small>역사 장면 그림과 쉬운 글, 들려주기로 자료를 살펴요.</small></figcaption></figure>
+      <figure class="ph" style="margin:0"><div class="frame"><img src="images/booth/map.jpg" alt="미션 1, 2를 마치고 스탬프를 받은 미션 지도 화면"></div>
+        <figcaption><b><i>3</i>미션 4개, 스탬프</b><small>OX·순서 맞추기·근거 찾기 문제를 풀고 스탬프를 모아요.</small></figcaption></figure>
+      <figure class="ph" style="margin:0"><div class="frame"><img src="images/booth/postcard.jpg" alt="이어 갈 오월 정신을 고르고 기억할 것을 쓰는 엽서 화면"></div>
+        <figcaption><b><i>4</i>기억 엽서 만들기</b><small>이어 갈 오월 정신과 실천 약속을 엽서로 남겨요.</small></figcaption></figure>
+    </div>
   </section>
 
-  <section class="two">
-    <div class="box stu">
-      <h3>학생 화면</h3>
-      <ul>
-        <li>로그인 없이 번호와 별명만으로 들어가요.</li>
-        <li>안내 캐릭터 ‘봄이’와 함께 자료를 읽고 문제를 풀어요.</li>
-        <li>미션마다 스탬프를 모으고 기록장에 생각을 써요.</li>
-        <li>마지막에 나만의 기억 엽서를 만들어 저장해요.</li>
-      </ul>
-    </div>
-    <div class="box tea">
-      <h3>교사 화면</h3>
-      <ul>
-        <li>구글 로그인 후 학급방을 여러 개 만들 수 있어요.</li>
-        <li>QR과 학급코드를 크게 띄워 학생을 들어오게 해요.</li>
-        <li>진행 현황, 어려워한 문항, 학생 글을 실시간으로 봐요.</li>
-        <li>결과를 CSV로 내려받고 수업 뒤 기록을 지워요.</li>
+  <section class="tea">
+    <div class="sec-t"><span class="tag">교사</span><h2>수업을 한눈에 확인해요</h2></div>
+    <div class="tea-row">
+      <div class="browser"><div class="bar"><i></i><i></i><i></i></div><img src="images/booth/teacher.jpg" alt="학생 7명의 미션 진행 현황을 보여 주는 교사 화면"></div>
+      <ul class="feat">
+        <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#b3372b" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></svg></span><div><b>학급방과 QR</b><span>반마다 학급방을 만들고 QR을 띄우면 학생이 바로 들어와요.</span></div></li>
+        <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#b3372b" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><div><b>실시간 진행 현황</b><span>누가 어느 미션에 있는지, 어려워한 문항이 무엇인지 보여요.</span></div></li>
+        <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#b3372b" stroke-width="2" stroke-linecap="round"><path d="M5 4h11l3 3v13H5z"/><path d="M9 10h6M9 14h6M9 18h3"/></svg></span><div><b>학생 글과 결과 내려받기</b><span>생각 쓰기와 엽서를 모아 보고, 결과를 CSV로 저장해요.</span></div></li>
       </ul>
     </div>
   </section>
 
   <section class="qrs" aria-label="체험 QR">
-    <div class="q stu"><div class="qr" id="qrStu"></div><div><b>학생으로 체험하기</b><span>app-84b43.web.app</span></div></div>
-    <div class="q tea"><div class="qr" id="qrTea"></div><div><b>교사로 체험하기</b><span>app-84b43.web.app/teacher.html</span></div></div>
+    <div class="q stu"><div class="qr" id="qrStu"></div><b>학생으로 체험하기</b></div>
+    <div class="mid"><h3>QR을 찍어 직접 체험해 보세요</h3><p>한 사람은 교사로 학급방을 만들고, 다른 사람은 학생으로 그 학급코드를 넣어 들어가면 진행 상황이 바로 바뀌는 것을 볼 수 있어요.</p></div>
+    <div class="q tea"><div class="qr" id="qrTea"></div><b>교사로 체험하기</b></div>
   </section>
 
-  <p class="foot">학생은 실명 대신 별명을 써요. 교사의 메일 주소와 이름은 학급방·학생 기록에 저장하지 않아요.</p>
+  <p class="foot">학생은 실명 대신 별명을 써요. 교사 화면은 구글 로그인이 필요해요. · 그림은 실제 사건을 바탕으로 생성형 AI로 제작한 이미지입니다.</p>
 </main>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
