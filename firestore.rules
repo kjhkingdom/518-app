@@ -2,7 +2,18 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     function signedIn() { return request.auth != null; }
-    function isTeacher() { return signedIn() && request.auth.token.firebase.sign_in_provider != 'anonymous'; }
+    function isTeacher() { return signedIn() && request.auth.token.firebase.sign_in_provider == 'google.com'; }
+    function shortStr(m, k, n) { return !(k in m) || (m[k] is string && m[k].size() <= n); }
+    function validStudent(d) {
+      return (!('stamps' in d) || (d.stamps is int && d.stamps >= 0 && d.stamps <= 10))
+        && (!('finished' in d) || d.finished is bool)
+        && shortStr(d, 'current', 20)
+        && (!('done' in d) || (d.done is map && d.done.size() <= 10))
+        && (!('results' in d) || (d.results is map && d.results.size() <= 40))
+        && (!('writing' in d) || (d.writing is map && d.writing.size() <= 10))
+        && (!('postcard' in d) || (d.postcard is map && d.postcard.keys().hasOnly(['value', 'remember', 'promise'])
+              && shortStr(d.postcard, 'value', 20) && shortStr(d.postcard, 'remember', 150) && shortStr(d.postcard, 'promise', 150)));
+    }
     function roomPath(code) { return /databases/$(database)/documents/rooms/$(code); }
     function ownerPath(code) { return /databases/$(database)/documents/rooms/$(code)/owners/$(request.auth.uid); }
     function ownsRoom(code) { return isTeacher() && exists(ownerPath(code)); }
@@ -18,13 +29,14 @@ service cloud.firestore {
       // 방을 만들 때는 같은 묶음에서 자기 owners 문서도 함께 만들어야 함
       allow create: if isTeacher()
         && request.resource.data.keys().hasOnly(['code', 'title', 'open', 'createdAt', 'createdBy'])
-        && request.resource.data.code == code
+        && request.resource.data.code == code && code.size() == 6
         && request.resource.data.createdBy == request.auth.uid
         && request.resource.data.title is string && request.resource.data.title.size() <= 40
         && request.resource.data.open == true
         && existsAfter(ownerPath(code));
       allow update: if ownsRoom(code)
-        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['open', 'title']);
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['open', 'title'])
+        && request.resource.data.title is string && request.resource.data.title.size() <= 40;
       allow delete: if ownsRoom(code);
 
       match /owners/{uid} {
@@ -47,7 +59,8 @@ service cloud.firestore {
           && get(roomPath(code)).data.open == true
           && request.resource.data.keys().hasOnly(['number', 'nickname', 'joinedAt', 'updatedAt', 'current', 'done', 'stamps', 'results', 'writing', 'postcard', 'finished'])
           && request.resource.data.number is int && request.resource.data.number >= 1 && request.resource.data.number <= 99
-          && request.resource.data.nickname is string && request.resource.data.nickname.size() >= 1 && request.resource.data.nickname.size() <= 10;
+          && request.resource.data.nickname is string && request.resource.data.nickname.size() >= 1 && request.resource.data.nickname.size() <= 10
+          && validStudent(request.resource.data);
         allow delete: if ownsRoom(code);
       }
     }
