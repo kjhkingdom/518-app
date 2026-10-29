@@ -263,7 +263,7 @@ tr:last-child td { border-bottom: 0; }
       "</div>" +
       '<div style="display:grid;gap:16px;align-content:start"><div><h2 style="font-size:22px;margin-bottom:12px">내 학급방</h2><div class="rlist">' + list + "</div></div>" +
         '<section class="panel" style="display:grid;gap:10px"><h2 style="font-size:19px">내 계정</h2>' +
-          '<p style="font-size:15px">저장된 정보: 구글 메일 주소(' + esc(teacher && teacher.masked || "") + ") 하나예요. 이름과 사진은 쓰지 않으며, Firebase 로그인 기록에 남은 것도 계정을 지우면 모두 삭제돼요.</p>" +
+          '<p style="font-size:15px">저장된 정보: 구글 메일 주소(' + esc(teacher && teacher.masked || "") + ")예요. 앱은 이름과 사진을 저장하지 않아요. 다만 구글이 로그인할 때 보내는 이름·사진 주소가 Firebase 로그인 기록에 남고, 계정을 지우면 함께 삭제돼요.</p>" +
           '<p class="muted" style="font-size:14px">계정을 지우면 메일 주소가 바로 삭제되고, 내가 만든 학급방과 학생 기록도 모두 함께 지워져요.</p>' +
           '<div class="row"><button class="btn danger" id="delMeBtn" type="button">내 계정 지우기</button></div></section>' +
       "</div>" +
