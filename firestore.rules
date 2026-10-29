@@ -3,28 +3,48 @@ service cloud.firestore {
   match /databases/{database}/documents {
     function signedIn() { return request.auth != null; }
     function isTeacher() { return signedIn() && request.auth.token.firebase.sign_in_provider != 'anonymous'; }
-    function room(code) { return get(/databases/$(database)/documents/rooms/$(code)).data; }
-    function ownsRoom(code) { return signedIn() && room(code).ownerUid == request.auth.uid; }
+    function roomPath(code) { return /databases/$(database)/documents/rooms/$(code); }
+    function ownerPath(code) { return /databases/$(database)/documents/rooms/$(code)/owners/$(request.auth.uid); }
+    function ownsRoom(code) { return isTeacher() && exists(ownerPath(code)); }
+
+    // 교사의 '내 학급방' 목록: owners 문서를 uid로 모아 봄 (교사 한 명이 방을 여러 개 가질 수 있음)
+    match /{path=**}/owners/{uid} {
+      allow list: if isTeacher() && resource.data.uid == request.auth.uid;
+    }
 
     match /rooms/{code} {
       // 학생은 학급코드로 방 하나만 확인할 수 있고, 방 목록은 볼 수 없음
       allow get: if signedIn();
-      allow list: if isTeacher() && resource.data.ownerUid == request.auth.uid;
+      // 방을 만들 때는 같은 묶음에서 자기 owners 문서도 함께 만들어야 함
       allow create: if isTeacher()
-        && request.resource.data.ownerUid == request.auth.uid
-        && request.resource.data.keys().hasOnly(['code', 'title', 'ownerUid', 'open', 'createdAt'])
+        && request.resource.data.keys().hasOnly(['code', 'title', 'open', 'createdAt', 'createdBy'])
         && request.resource.data.code == code
+        && request.resource.data.createdBy == request.auth.uid
         && request.resource.data.title is string && request.resource.data.title.size() <= 40
-        && request.resource.data.open == true;
-      allow update: if isTeacher() && resource.data.ownerUid == request.auth.uid
+        && request.resource.data.open == true
+        && existsAfter(ownerPath(code));
+      allow update: if ownsRoom(code)
         && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['open', 'title']);
-      allow delete: if isTeacher() && resource.data.ownerUid == request.auth.uid;
+      allow delete: if ownsRoom(code);
+
+      match /owners/{uid} {
+        allow get: if isTeacher() && request.auth.uid == uid;
+        // 새로 만드는 방에만 자기 자신을 주인으로 올릴 수 있음 (남의 방에 끼어들 수 없음)
+        allow create: if isTeacher() && request.auth.uid == uid
+          && request.resource.data.keys().hasOnly(['uid', 'code'])
+          && request.resource.data.uid == uid && request.resource.data.code == code
+          && !exists(roomPath(code))
+          && getAfter(roomPath(code)).data.createdBy == uid;
+        // 방을 먼저 지운 뒤에도 자기 owners 문서는 지울 수 있음
+        allow delete: if isTeacher() && request.auth.uid == uid;
+      }
 
       match /students/{sid} {
         // 학생은 자기 기록만 쓰고 읽음, 교사(방 주인)는 방의 모든 기록을 읽고 지움
+        // 학생마다 입장할 때 새 익명 계정을 쓰므로, 번호가 같아도 별명이 다르면(같아도) 서로 다른 기록으로 남음
         allow read: if signedIn() && (request.auth.uid == sid || ownsRoom(code));
         allow create, update: if signedIn() && request.auth.uid == sid
-          && room(code).open == true
+          && get(roomPath(code)).data.open == true
           && request.resource.data.keys().hasOnly(['number', 'nickname', 'joinedAt', 'updatedAt', 'current', 'done', 'stamps', 'results', 'writing', 'postcard', 'finished'])
           && request.resource.data.number is int && request.resource.data.number >= 1 && request.resource.data.number <= 99
           && request.resource.data.nickname is string && request.resource.data.nickname.size() >= 1 && request.resource.data.nickname.size() <= 10;

@@ -63,6 +63,20 @@ input[type="text"]:focus { outline: none; border-color: var(--leaf); }
 .ritem .t { font-weight: 700; font-size: 18px; }
 .ritem .c { font-family: var(--display); font-weight: 700; letter-spacing: .12em; font-size: 20px; color: var(--leaf); }
 .ritem .d { font-size: 14px; color: var(--muted); }
+.login-wrap { display: grid; gap: 18px; justify-items: center; }
+.login-wrap .login { width: 100%; }
+.hero-fig { margin: 0; width: 100%; max-width: 960px; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: var(--card); }
+.hero-fig img { display: block; width: 100%; height: auto; }
+.hero-fig figcaption { font-size: 13px; color: var(--muted); padding: 6px 12px; border-top: 1px solid var(--line); }
+.notice { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; background: var(--paper); font-size: 15px; display: grid; gap: 6px; }
+.notice h2 { font-size: 17px; }
+.notice dl { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 12px; margin: 0; }
+.notice dt { font-weight: 700; color: var(--muted); }
+.notice dd { margin: 0; }
+.agree { display: flex; gap: 10px; align-items: center; font-weight: 700; min-height: 44px; cursor: pointer; }
+.agree input { width: 22px; height: 22px; accent-color: var(--leaf); }
+.privacy { background: var(--leaf-soft); color: var(--leaf); border-radius: 10px; padding: 10px 14px; font-size: 15px; font-weight: 700; }
+.create label { font-size: 15px; color: var(--muted); }
 .empty { color: var(--muted); padding: 20px; border: 2px dashed var(--line); border-radius: 14px; text-align: center; }
 .rhead { display: grid; gap: 18px; grid-template-columns: minmax(0, 1fr); margin-bottom: 20px; }
 @media (min-width: 900px) { .rhead { grid-template-columns: minmax(0, 1fr) 300px; } }
@@ -79,8 +93,8 @@ input[type="text"]:focus { outline: none; border-color: var(--leaf); }
 .tabs button { background: none; border: 0; border-bottom: 3px solid transparent; margin-bottom: -2px; padding: 10px 14px; font-weight: 700; cursor: pointer; color: var(--muted); min-height: 44px; }
 .tabs button[aria-selected="true"] { color: var(--leaf); border-bottom-color: var(--leaf); }
 .tablewrap { overflow-x: auto; background: var(--card); border: 1px solid var(--line); border-radius: 14px; }
-table { border-collapse: collapse; width: 100%; min-width: 760px; font-size: 16px; }
-th, td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+table { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 16px; }
+th, td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
 th { font-size: 14px; color: var(--muted); font-weight: 700; background: var(--paper); }
 td.num { font-variant-numeric: tabular-nums; }
 tr:last-child td { border-bottom: 0; }
@@ -89,7 +103,7 @@ tr:last-child td { border-bottom: 0; }
 .st.doing { background: var(--gold-soft); color: var(--gold); }
 .st.none { color: var(--muted); }
 .live { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--ok); margin-right: 6px; }
-.linkbtn { background: none; border: 0; color: var(--leaf); font-weight: 700; text-decoration: underline; cursor: pointer; padding: 4px; }
+.linkbtn { background: none; border: 0; color: var(--leaf); font-weight: 700; text-decoration: underline; cursor: pointer; padding: 4px 8px; min-height: 44px; min-width: 44px; }
 .alist { display: grid; gap: 10px; }
 .aitem { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; display: grid; gap: 8px; }
 .aitem.hard { border-color: var(--gold); box-shadow: 0 0 0 2px var(--gold-soft); }
@@ -120,6 +134,16 @@ tr:last-child td { border-bottom: 0; }
 .proj p { font-size: 20px; opacity: .85; }
 .proj .btn { background: #f3f1ea; color: #1b2c24; border-color: #f3f1ea; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+/* 태블릿·휴대폰 화면 보완 */
+@media (max-width: 899px) { .top { position: static; } }
+@media (max-width: 700px) {
+  /* 표를 옆으로 밀어도 번호와 별명은 왼쪽에 고정 */
+  th:nth-child(1), td:nth-child(1) { position: sticky; left: 0; z-index: 1; background: var(--card); width: 44px; min-width: 44px; }
+  th:nth-child(2), td:nth-child(2) { position: sticky; left: 44px; z-index: 1; background: var(--card); box-shadow: 2px 0 0 var(--line); }
+  th:nth-child(1), th:nth-child(2) { background: var(--paper); }
+  .rhead .row .btn { flex: 1 1 auto; justify-content: center; }
+}
 </style>
 </head>
 <body>
@@ -133,9 +157,9 @@ tr:last-child td { border-bottom: 0; }
 <main class="wrap" id="app"><p class="muted">불러오는 중…</p></main>
 <div id="layer"></div>
 
-<script src="firebase-config.js"></script>
-<script src="backend.js"></script>
-<script src="content.js"></script>
+<script src="firebase-config.js?v=20261019c"></script>
+<script src="backend.js?v=20261019c"></script>
+<script src="content.js?v=20261019c"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script>
 (function () {
   "use strict";
@@ -154,6 +178,22 @@ tr:last-child td { border-bottom: 0; }
   function isLive(st) { return st.updatedAt && Date.now() - st.updatedAt < 120000; }
   function studentURL(code) { return new URL("index.html?room=" + code, location.href).href; }
   function place(st) { var c = st.current; if (!c) return "-"; if (/^m\d$/.test(c)) return "미션 " + c.slice(1); return PLACE[c] || c; }
+  // 학생이 보낸 기록은 믿지 않고, 정해진 형태(숫자·참거짓·짧은 글)로만 바꿔서 씀
+  function str(v, n) { return typeof v === "string" ? v.slice(0, n) : ""; }
+  function int(v, lo, hi) { v = Math.floor(Number(v)); return isFinite(v) ? Math.min(hi, Math.max(lo, v)) : lo; }
+  function clean(x) {
+    var o = { id: str(x.id, 128), number: int(x.number, 0, 99), nickname: str(x.nickname, 10), stamps: int(x.stamps, 0, C.missions.length), finished: x.finished === true,
+      current: str(x.current, 20), updatedAt: typeof x.updatedAt === "number" ? x.updatedAt : 0, done: {}, results: {}, writing: {}, postcard: {} };
+    C.missions.forEach(function (m) { if (x.done && x.done[m.id] === true) o.done[m.id] = true; });
+    ACTS.forEach(function (a) {
+      var r = x.results && x.results[a.key];
+      if (r && typeof r === "object") o.results[a.key] = { ok: r.ok === true, wrong: int(r.wrong, 0, 999) };
+      if (a.a.type === "reflect") { var w = x.writing && x.writing[a.a.key]; if (w && typeof w === "object") o.writing[a.a.key] = { choice: str(w.choice, 60), text: str(w.text, 300) }; }
+    });
+    var p = x.postcard && typeof x.postcard === "object" ? x.postcard : {};
+    o.postcard = { value: str(p.value, 20), remember: str(p.remember, 120), promise: str(p.promise, 100) };
+    return o;
+  }
   function sorted() { return students.slice().sort(function (a, b) { return (a.number || 0) - (b.number || 0) || String(a.nickname).localeCompare(String(b.nickname)); }); }
   function qr(code) {
     if (qrCache[code]) return qrCache[code];
@@ -175,34 +215,80 @@ tr:last-child td { border-bottom: 0; }
     return "";
   }
   function renderLogin() {
-    app.innerHTML = modeBanner() + '<section class="login panel"><h1>선생님, 어서 오세요</h1>' +
+    app.innerHTML = modeBanner() + '<div class="login-wrap">' +
+      (C.heroImage ? '<figure class="hero-fig"><img src="' + esc(C.heroImage) + '" alt="' + esc(C.heroAlt || "") + '"><figcaption>' + esc(C.aiNotice || "") + "</figcaption></figure>" : "") +
+      '<section class="login panel"><h1>선생님, 어서 오세요</h1>' +
       "<p>학급방을 만들면 학생들이 QR이나 학급코드로 들어와 활동하고, 진행 상황과 답변을 이 화면에서 바로 볼 수 있어요.</p>" +
-      '<div class="row"><button class="btn" id="loginBtn" type="button">' + (B.mode === "local" ? "체험 모드로 시작하기" : "구글 계정으로 로그인") + "</button></div>" +
-      '<p class="muted" style="font-size:14px">학생은 로그인 없이 번호와 별명만으로 들어와요.</p><p class="muted" id="loginErr" role="alert" style="font-size:14px"></p></section>';
+      '<p class="privacy">로그인 확인에 필요한 구글 메일 주소 말고는 선생님의 개인정보를 쓰지 않아요. 이름과 사진은 쓰지 않고, 메일 주소도 학급방이나 학생 기록에 남기지 않아요.</p>' +
+      '<section class="notice" aria-labelledby="nT"><h2 id="nT">개인정보 수집·이용 안내 (교사)</h2><dl>' +
+        "<dt>수집 항목</dt><dd>구글 계정의 메일 주소 (구글이 로그인할 때 함께 보내는 이름·프로필 사진 주소가 Firebase 로그인 기록에 같이 남아요)</dd>" +
+        "<dt>수집 목적</dt><dd>교사 본인 확인, 내가 만든 학급방 불러오기</dd>" +
+        "<dt>보관 기간</dt><dd>‘내 계정 지우기’를 누를 때까지 (누르면 메일 주소와 로그인 기록이 바로 모두 삭제)</dd>" +
+        "<dt>지키는 방법</dt><dd>앱은 이름과 사진을 쓰지 않고, 로그인 직후 계정 정보에서 지워요. 메일 주소와 이름은 학급방이나 학생 기록에 저장하지 않아요. 로그인 기록은 앱 관리자만 볼 수 있고, 다른 선생님과 학생은 볼 수 없어요.</dd>" +
+        "<dt>동의하지 않으면</dt><dd>교사 기능을 쓸 수 없어요. 학생 활동에는 영향이 없어요.</dd>" +
+      "</dl></section>" +
+      '<label class="agree" for="agreeChk"><input type="checkbox" id="agreeChk"> 안내를 읽었고 동의해요</label>' +
+      '<div class="row"><button class="btn" id="loginBtn" type="button" disabled>' + (B.mode === "local" ? "체험 모드로 시작하기" : "구글 계정으로 로그인") + "</button></div>" +
+      '<p class="muted" style="font-size:14px">학생은 로그인 없이 번호와 별명만으로 들어와요.</p><p id="loginErr" role="alert" style="font-size:15px;color:var(--stamp);font-weight:700"></p></section></div>';
+    $("#agreeChk").onchange = function () { $("#loginBtn").disabled = !this.checked; };
     $("#loginBtn").onclick = function () {
       var b = this; b.disabled = true;
-      B.signInTeacher().then(function (t) { teacher = t; afterLogin(); }).catch(function (e) { b.disabled = false; $("#loginErr").textContent = "로그인하지 못했어요. 팝업 차단을 풀고 다시 눌러 주세요. (" + (e && e.code || "오류") + ")"; });
+      if (!$("#agreeChk").checked) { b.disabled = false; return; }
+      B.signInTeacher().then(function (t) { teacher = t; afterLogin(); }).catch(function (e) {
+        b.disabled = false;
+        var c = e && e.code || "";
+        $("#loginErr").textContent = /popup-blocked/.test(c) ? "팝업이 막혔어요. 주소창 오른쪽에서 팝업을 허용한 뒤 다시 눌러 주세요."
+          : /popup-closed|cancelled-popup/.test(c) ? "로그인 창이 닫혔어요. 다시 눌러 주세요."
+          : /operation-not-allowed/.test(c) ? "Firebase에서 Google 로그인이 꺼져 있어요. 관리자에게 알려 주세요."
+          : "로그인하지 못했어요. 인터넷 연결을 확인하고 다시 눌러 주세요. (" + (c || "오류") + ")";
+      });
     };
   }
-  function renderRooms() {
-    var list = rooms.length ? rooms.map(function (r) {
+  function roomListHTML() {
+    return rooms.length ? rooms.map(function (r) {
       return '<button type="button" class="ritem" data-room="' + esc(r.code) + '"><span class="t">' + esc(r.title || "이름 없는 방") + '</span><span class="c">' + esc(r.code) + '</span><span class="d">' + (r.open ? "입장 가능" : "입장 마감") + " · " + (r.createdAt ? new Date(r.createdAt).toLocaleString("ko-KR", { month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" }) : "") + "</span><span></span></button>";
     }).join("") : '<p class="empty">아직 만든 학급방이 없어요. 첫 방을 만들어 보세요.</p>';
-    app.innerHTML = modeBanner() + '<section class="rooms">' +
+  }
+  function bindRoomList() { $$("[data-room]").forEach(function (b) { b.onclick = function () { openRoom(b.getAttribute("data-room")); }; }); }
+  // 방 목록이 바뀌어도 입력 중인 칸이 지워지지 않게 목록 부분만 다시 그림
+  function updateRoomList() { var el = $(".rlist"); if (!el) return renderRooms(); el.innerHTML = roomListHTML(); bindRoomList(); }
+  function renderRooms() {
+    var list = roomListHTML();
+    app.innerHTML = modeBanner() + '<section class="rooms"><div style="display:grid;gap:16px;align-content:start">' +
       '<form class="panel create" id="createForm"><h2 style="font-size:22px">새 학급방 만들기</h2>' +
         '<label for="rTitle" class="muted" style="font-size:15px">방 이름 (예: 6학년 2반 3교시)</label>' +
         '<input type="text" id="rTitle" maxlength="40" placeholder="6학년 2반 3교시" autocomplete="off">' +
         '<div class="row"><button class="btn" type="submit" id="createBtn">방 만들기</button></div>' +
         '<p class="muted" style="font-size:14px">방을 만들면 학급코드와 QR코드가 나와요. 칠판이나 TV에 띄워 주세요.</p><p id="cErr" role="alert" style="color:var(--stamp);font-weight:700"></p></form>' +
-      '<div><h2 style="font-size:22px;margin-bottom:12px">내 학급방</h2><div class="rlist">' + list + "</div></div>" +
+      "</div>" +
+      '<div style="display:grid;gap:16px;align-content:start"><div><h2 style="font-size:22px;margin-bottom:12px">내 학급방</h2><div class="rlist">' + list + "</div></div>" +
+        '<section class="panel" style="display:grid;gap:10px"><h2 style="font-size:19px">내 계정</h2>' +
+          '<p style="font-size:15px">저장된 정보: 구글 메일 주소(' + esc(teacher && teacher.masked || "") + ") 하나예요. 이름과 사진은 쓰지 않으며, Firebase 로그인 기록에 남은 것도 계정을 지우면 모두 삭제돼요.</p>" +
+          '<p class="muted" style="font-size:14px">계정을 지우면 메일 주소가 바로 삭제되고, 내가 만든 학급방과 학생 기록도 모두 함께 지워져요.</p>' +
+          '<div class="row"><button class="btn danger" id="delMeBtn" type="button">내 계정 지우기</button></div></section>' +
+      "</div>" +
     "</section>";
     $("#createForm").onsubmit = function (e) {
       e.preventDefault();
       var t = $("#rTitle").value.trim() || new Date().toLocaleDateString("ko-KR") + " 수업", btn = $("#createBtn");
       btn.disabled = true; btn.textContent = "만드는 중…";
-      B.createRoom(t).then(function (code) { openRoom(code); }).catch(function (er) { btn.disabled = false; btn.textContent = "방 만들기"; $("#cErr").textContent = "방을 만들지 못했어요. (" + (er && (er.code || er.message) || "오류") + ")"; });
+      B.createRoom(t).then(function (res) { openRoom(res.code); }).catch(function (er) { btn.disabled = false; btn.textContent = "방 만들기"; $("#cErr").textContent = "방을 만들지 못했어요. (" + (er && (er.code || er.message) || "오류") + ")"; });
     };
-    $$("[data-room]").forEach(function (b) { b.onclick = function () { openRoom(b.getAttribute("data-room")); }; });
+    bindRoomList();
+    $("#delMeBtn").onclick = askDeleteMe;
+  }
+  function askDeleteMe() {
+    confirmBox("내 계정을 지울까요?", "구글 메일 주소가 이 앱에서 바로 삭제돼요. 내가 만든 학급방 " + rooms.length + "개와 그 학생 기록도 모두 지워지고 되돌릴 수 없어요. 필요한 결과는 먼저 CSV로 내려받으세요.", "계정 지우기", function () {
+      layer.innerHTML = '<div class="modal-bg"><div class="modal" role="status"><p>계정을 지우는 중이에요…</p></div></div>';
+      closeRoomWatch(); if (unsubRooms) { unsubRooms(); unsubRooms = null; }
+      B.deleteMyAccount().then(function () {
+        teacher = null; rooms = []; $("#who").textContent = ""; $("#outBtn").hidden = true; render();
+        alertBox("계정을 지웠어요. 이 앱에 저장된 선생님 정보가 모두 삭제됐어요.");
+      }).catch(function (e) {
+        layer.innerHTML = ""; render();
+        alertBox("계정을 지우지 못했어요. 다시 로그인한 뒤 한 번 더 눌러 주세요. (" + (e && e.code || "오류") + ")");
+      });
+    });
   }
 
   function stats() {
@@ -273,7 +359,7 @@ tr:last-child td { border-bottom: 0; }
           '<button class="btn ghost" id="openBtn" type="button">' + (room.open ? "입장 마감하기" : "입장 다시 열기") + "</button>" +
           '<button class="btn ghost" id="csvBtn" type="button">결과 내려받기 (CSV)</button>' +
           '<a class="btn plain" href="' + esc(url) + '" target="_blank" rel="noopener">학생 화면 열어 보기</a>' +
-          '<button class="btn danger" id="delBtn" type="button">방과 기록 지우기</button></div>' +
+                    '<button class="btn danger" id="delBtn" type="button">방과 기록 지우기</button></div>' +
         (room.open ? "" : '<p class="muted" style="font-size:14px">입장을 마감하면 새 학생이 들어올 수 없고, 이미 들어온 학생의 기록도 더 이상 전달되지 않아요.</p>') +
       "</div>" +
       '<div class="panel codebox"><span class="muted" style="font-size:14px">학급코드</span><span class="code">' + esc(cur) + "</span>" +
@@ -355,7 +441,7 @@ tr:last-child td { border-bottom: 0; }
       var p = st.postcard || {}; row.push(p.value || "", p.remember || "", p.promise || "");
       lines.push(row);
     });
-    var csv = "﻿" + lines.map(function (r) { return r.map(function (v) { v = String(v == null ? "" : v); return /[",\r\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }).join(","); }).join("\r\n");
+    var csv = "﻿" + lines.map(function (r) { return r.map(function (v) { v = String(v == null ? "" : v); if (/^[=+\-@\t\r]/.test(v)) v = "'" + v; return /[",\r\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }).join(","); }).join("\r\n");
     var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
     a.download = "오월의기록탐험대_" + String(room.title || cur).replace(/[\\/:*?"<>|]/g, "_") + "_" + new Date().toISOString().slice(0, 10) + ".csv";
     document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
@@ -366,19 +452,22 @@ tr:last-child td { border-bottom: 0; }
     closeRoomWatch(); cur = code; room = null; students = []; tab = "progress"; selId = null; layer.innerHTML = "";
     try { history.replaceState(null, "", "#" + code); } catch (e) {}
     unsubRoom.push(B.watchRoom(code, function (r) { if (cur !== code) return; if (!r) { closeRoom(); return; } room = r; renderRoom(); }));
-    unsubRoom.push(B.watchStudents(code, function (list) { if (cur !== code) return; students = list; renderRoom(); }));
+    unsubRoom.push(B.watchStudents(code, function (list) { if (cur !== code) return; students = list.map(clean); renderRoom(); }));
     window.scrollTo(0, 0); render();
   }
   function closeRoomWatch() { unsubRoom.forEach(function (u) { try { if (u) u(); } catch (e) {} }); unsubRoom = []; }
   function closeRoom() { closeRoomWatch(); cur = null; room = null; students = []; selId = null; layer.innerHTML = ""; try { history.replaceState(null, "", location.pathname + location.search); } catch (e) {} render(); }
   function afterLogin() {
-    $("#who").textContent = teacher.name || ""; $("#outBtn").hidden = false;
+    $("#who").textContent = teacher.masked ? teacher.masked + " 로그인" : ""; $("#outBtn").hidden = false;
     if (unsubRooms) unsubRooms();
-    unsubRooms = B.watchMyRooms(function (list) { rooms = list; if (!cur) renderRooms(); });
+    unsubRooms = B.watchMyRooms(function (list) { rooms = list; if (!cur) updateRoomList(); });
     var h = (location.hash || "").replace("#", "");
-    if (h && /^[A-Z0-9]{6}$/.test(h)) openRoom(h); else render();
+    if (h && /^[A-Z0-9]{6}$/.test(h)) B.isMyRoom(h).then(function (mine) { if (mine) openRoom(h); else render(); }); else render();
   }
-  $("#outBtn").onclick = function () { closeRoom(); if (unsubRooms) unsubRooms(); unsubRooms = null; B.signOutTeacher().then(function () { teacher = null; $("#who").textContent = ""; $("#outBtn").hidden = true; render(); }); };
+  $("#outBtn").onclick = function () {
+    closeRoom(); if (unsubRooms) unsubRooms(); unsubRooms = null;
+    B.signOutTeacher().then(function () { teacher = null; $("#who").textContent = ""; $("#outBtn").hidden = true; render(); });
+  };
   setInterval(function () { if (cur && room && !layer.innerHTML) renderRoom(); }, 30000);
 
   window.Backend.ready.then(function (b) {
