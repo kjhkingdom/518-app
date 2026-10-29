@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&display=swap">
 <style>
-/* 부스용 한 장 안내: 위쪽 소개 → 학생 QR / 교사 QR 두 칸 → 진행 순서. A4 세로 한 장에 맞춤 */
+/* 부스용 한 장 안내: 앱 소개 → 미션 4개 → 학생·교사 화면 기능 → 아래쪽 작은 QR 두 개. A4 세로 한 장 */
 :root {
   --paper: #eef3ee; --card: #fbfcf8; --ink: #1b2c24; --muted: #56685e; --line: #cfdad2;
   --leaf: #2d6a4c; --leaf-soft: #dcebe1; --stamp: #b3372b; --stamp-soft: #f6e1dc;
@@ -18,132 +18,112 @@
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; }
-body { background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.6; word-break: keep-all; }
-h1, h2 { font-family: var(--display); margin: 0; line-height: 1.25; }
-p, ol { margin: 0; }
-.sheet { max-width: 210mm; margin: 24px auto; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 14mm 14mm 12mm; display: grid; gap: 22px; }
+body { background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.6; word-break: keep-all; }
+h1, h2, h3 { font-family: var(--display); margin: 0; line-height: 1.25; }
+p, ul, ol { margin: 0; }
+.sheet { max-width: 210mm; margin: 24px auto; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 13mm 14mm 10mm; display: grid; gap: 20px; }
 .head { display: grid; gap: 8px; text-align: center; }
-.eyebrow { font-size: 15px; font-weight: 700; color: var(--stamp); letter-spacing: .04em; }
+.eyebrow { font-size: 14px; font-weight: 700; color: var(--stamp); letter-spacing: .04em; }
 .head h1 { font-size: 40px; }
 .head h1 span { color: var(--stamp); }
-.head p { color: var(--muted); font-size: 17px; }
-.roles { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.role { border: 2px solid var(--line); border-radius: 16px; padding: 18px 16px 16px; display: grid; gap: 10px; justify-items: center; text-align: center; }
-.role.stu { border-color: var(--leaf); background: var(--leaf-soft); }
-.role.tea { border-color: var(--stamp); background: var(--stamp-soft); }
-.tag { font-size: 14px; font-weight: 700; padding: 2px 12px; border-radius: 999px; color: var(--card); }
-.stu .tag { background: var(--leaf); } .tea .tag { background: var(--stamp); }
-.role h2 { font-size: 26px; }
-.qr { width: 200px; height: 200px; background: #fff; padding: 10px; border-radius: 12px; display: grid; place-items: center; }
-.qr img, .qr canvas { width: 180px !important; height: 180px !important; }
-.code { font-family: var(--display); font-weight: 700; font-size: 22px; letter-spacing: .14em; color: var(--leaf); }
-.role ol { text-align: left; padding-left: 22px; font-size: 16px; display: grid; gap: 2px; }
-.url { font-size: 12px; color: var(--muted); word-break: break-all; }
-.flow { border-top: 2px dashed var(--line); padding-top: 16px; display: grid; gap: 6px; }
-.flow h2 { font-size: 20px; }
-.flow ol { padding-left: 22px; display: grid; gap: 2px; }
-.foot { font-size: 13px; color: var(--muted); text-align: center; }
-/* 화면에서만 보이는 학급코드 설정 칸 */
-.setup { max-width: 210mm; margin: 16px auto 0; padding: 12px 16px; background: #fff7e0; border: 1px solid #e6cf8a; border-radius: 12px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-size: 15px; }
-.setup input { font: inherit; font-size: 18px; letter-spacing: .12em; text-transform: uppercase; width: 9em; padding: 6px 10px; border: 2px solid var(--line); border-radius: 10px; }
-.setup button { font: inherit; font-weight: 700; padding: 8px 16px; border-radius: 999px; border: 2px solid var(--leaf); background: var(--leaf); color: #fff; cursor: pointer; }
-.setup button.ghost { background: transparent; color: var(--leaf); }
-@media (max-width: 640px) { .roles { grid-template-columns: 1fr; } .sheet { margin: 12px 16px; padding: 20px 16px; } .head h1 { font-size: 32px; } .setup { margin: 12px 16px 0; } }
+.lead { font-size: 18px; }
+.meta { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.meta span { font-size: 14px; font-weight: 700; padding: 2px 12px; border-radius: 999px; background: var(--leaf-soft); color: var(--leaf); }
+.sec h2 { font-size: 20px; margin-bottom: 10px; }
+.missions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; list-style: none; padding: 0; }
+.missions li { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; display: grid; gap: 4px; align-content: start; }
+.missions .n { font-family: var(--display); font-weight: 700; color: var(--stamp); font-size: 14px; }
+.missions b { font-family: var(--display); font-size: 17px; line-height: 1.3; }
+.missions small { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.box { border-radius: 14px; padding: 14px 16px; display: grid; gap: 8px; align-content: start; }
+.box.stu { background: var(--leaf-soft); } .box.tea { background: var(--stamp-soft); }
+.box h3 { font-size: 18px; }
+.stu h3 { color: var(--leaf); } .tea h3 { color: var(--stamp); }
+.box ul { padding-left: 20px; font-size: 15px; display: grid; gap: 2px; }
+.qrs { border-top: 2px dashed var(--line); padding-top: 14px; display: flex; justify-content: center; gap: 36px; flex-wrap: wrap; }
+.q { display: flex; gap: 12px; align-items: center; }
+.qr { width: 96px; height: 96px; background: #fff; padding: 6px; border-radius: 8px; border: 1px solid var(--line); flex: none; }
+.qr img, .qr canvas { width: 84px !important; height: 84px !important; display: block; }
+.q b { display: block; font-size: 16px; }
+.q.stu b { color: var(--leaf); } .q.tea b { color: var(--stamp); }
+.q span { font-size: 13px; color: var(--muted); }
+.foot { font-size: 12px; color: var(--muted); text-align: center; }
+.printbar { max-width: 210mm; margin: 16px auto 0; display: flex; justify-content: flex-end; }
+.printbar button { font: inherit; font-weight: 700; padding: 8px 18px; border-radius: 999px; border: 2px solid var(--leaf); background: var(--leaf); color: #fff; cursor: pointer; }
+@media (max-width: 680px) {
+  .sheet { margin: 12px 16px; padding: 20px 16px; } .head h1 { font-size: 32px; }
+  .missions { grid-template-columns: 1fr 1fr; } .two { grid-template-columns: 1fr; } .printbar { margin: 12px 16px 0; }
+}
 @page { size: A4 portrait; margin: 8mm; }
 @media print {
   body { background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .setup { display: none; }
+  .printbar { display: none; }
   .sheet { margin: 0; border: 0; border-radius: 0; padding: 4mm 6mm; max-width: none; }
 }
 </style>
 </head>
 <body>
-<div class="setup" id="setup">
-  <label for="codeIn"><b>학생 QR의 학급코드</b> (교사 화면의 6자리 코드)</label>
-  <input id="codeIn" maxlength="7" autocomplete="off" placeholder="ABC234">
-  <button type="button" id="applyBtn">적용</button>
-  <button type="button" class="ghost" id="printBtn">인쇄하기</button>
-  <span id="setupMsg" style="color:var(--muted)"></span>
-</div>
+<div class="printbar"><button type="button" onclick="window.print()">인쇄하기</button></div>
 
 <main class="sheet">
   <header class="head">
-    <p class="eyebrow">5·18민주화운동 탐구 활동 · 체험 부스</p>
+    <p class="eyebrow">5·18민주화운동 탐구 활동 · 초등 5~6학년</p>
     <h1>오월의 <span>기록</span> 탐험대</h1>
-    <p>학생이 되어 미션을 풀고, 교사가 되어 학생들의 활동을 실시간으로 확인해 보세요.</p>
+    <p class="lead">자료 속 단서를 찾아 1980년 5월 광주의 열흘을 따라가고,<br>나만의 오월 기록장을 완성하는 탐구 앱이에요.</p>
+    <div class="meta"><span>약 25~30분</span><span>미션 4개</span><span>기억 엽서 만들기</span><span>교사 실시간 확인</span></div>
   </header>
 
-  <section class="roles">
-    <article class="role stu">
-      <span class="tag">학생 역할</span>
-      <h2>탐험대원이 되어 보기</h2>
-      <div class="qr" id="qrStu"></div>
-      <span class="code" id="stuCode"></span>
-      <ol>
-        <li>QR을 찍어요.</li>
-        <li>번호와 별명을 넣고 들어가요.</li>
-        <li>미션 4개를 풀고 기억 엽서를 만들어요.</li>
-      </ol>
-      <span class="url" id="stuUrl"></span>
-    </article>
-    <article class="role tea">
-      <span class="tag">교사 역할</span>
-      <h2>선생님이 되어 보기</h2>
-      <div class="qr" id="qrTea"></div>
-      <span class="code" style="color:var(--stamp)">교사 화면</span>
-      <ol>
-        <li>QR을 찍고 구글 계정으로 로그인해요.</li>
-        <li>학급방을 만들어 코드와 QR을 띄워요.</li>
-        <li>진행 현황, 문항 분석, 학생 글을 확인해요.</li>
-      </ol>
-      <span class="url" id="teaUrl"></span>
-    </article>
-  </section>
-
-  <section class="flow">
-    <h2>함께 해 보면 좋아요</h2>
-    <ol>
-      <li>한 사람은 <b>교사 역할</b>로 학급방을 만들고, 화면에 나온 학급코드를 친구에게 알려 줘요.</li>
-      <li>다른 사람은 <b>학생 역할</b>로 그 코드를 넣고 들어가 미션을 풀어요.</li>
-      <li>교사 화면에서 학생의 진행 상황과 답이 바로 바뀌는 것을 확인해요.</li>
+  <section class="sec">
+    <h2>미션 4개</h2>
+    <ol class="missions">
+      <li><span class="n">미션 1</span><b>오월의 시간 찾기</b><small>OX 퀴즈와 순서 맞추기로 열흘의 흐름을 따라가요.</small></li>
+      <li><span class="n">미션 2</span><b>기록 속 단서 찾기</b><small>고립된 광주의 진실을 알린 기록을 살펴요.</small></li>
+      <li><span class="n">미션 3</span><b>함께한 시민들</b><small>주먹밥, 헌혈, 스스로 지킨 질서를 만나요.</small></li>
+      <li><span class="n">미션 4</span><b>오늘의 민주주의</b><small>이름을 되찾기까지의 과정과 우리가 이어 갈 것을 생각해요.</small></li>
     </ol>
   </section>
 
-  <p class="foot">학생은 로그인 없이 번호와 별명만 써요. 실명은 넣지 마세요. · 부스 체험이 끝나면 만든 학급방은 ‘방과 기록 지우기’로 정리해 주세요.</p>
+  <section class="two">
+    <div class="box stu">
+      <h3>학생 화면</h3>
+      <ul>
+        <li>로그인 없이 번호와 별명만으로 들어가요.</li>
+        <li>안내 캐릭터 ‘봄이’와 함께 자료를 읽고 문제를 풀어요.</li>
+        <li>미션마다 스탬프를 모으고 기록장에 생각을 써요.</li>
+        <li>마지막에 나만의 기억 엽서를 만들어 저장해요.</li>
+      </ul>
+    </div>
+    <div class="box tea">
+      <h3>교사 화면</h3>
+      <ul>
+        <li>구글 로그인 후 학급방을 여러 개 만들 수 있어요.</li>
+        <li>QR과 학급코드를 크게 띄워 학생을 들어오게 해요.</li>
+        <li>진행 현황, 어려워한 문항, 학생 글을 실시간으로 봐요.</li>
+        <li>결과를 CSV로 내려받고 수업 뒤 기록을 지워요.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="qrs" aria-label="체험 QR">
+    <div class="q stu"><div class="qr" id="qrStu"></div><div><b>학생으로 체험하기</b><span>app-84b43.web.app</span></div></div>
+    <div class="q tea"><div class="qr" id="qrTea"></div><div><b>교사로 체험하기</b><span>app-84b43.web.app/teacher.html</span></div></div>
+  </section>
+
+  <p class="foot">학생은 실명 대신 별명을 써요. 교사의 메일 주소와 이름은 학급방·학생 기록에 저장하지 않아요.</p>
 </main>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 (function () {
   "use strict";
-  var BASE = "https://app-84b43.web.app/";
-  var TEACHER = BASE + "teacher.html";
-  function norm(c) { return String(c || "").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 6); }
-  function draw(el, text) {
-    el.innerHTML = "";
-    if (!window.QRCode) { el.textContent = "QR을 만들지 못했어요"; return; }
-    new QRCode(el, { text: text, width: 360, height: 360, correctLevel: QRCode.CorrectLevel.M });
+  function draw(id, text) {
+    var el = document.getElementById(id);
+    if (!window.QRCode) { el.textContent = "QR 오류"; return; }
+    new QRCode(el, { text: text, width: 256, height: 256, correctLevel: QRCode.CorrectLevel.M });
   }
-  function apply(code) {
-    var url = code.length === 6 ? BASE + "index.html?room=" + code : BASE;
-    draw(document.getElementById("qrStu"), url);
-    document.getElementById("stuCode").textContent = code.length === 6 ? "학급코드 " + code : "학급코드는 부스에서 안내";
-    document.getElementById("stuUrl").textContent = url;
-    document.getElementById("codeIn").value = code;
-    try { history.replaceState(null, "", location.pathname + (code.length === 6 ? "?room=" + code : "")); } catch (e) {}
-  }
-  draw(document.getElementById("qrTea"), TEACHER);
-  document.getElementById("teaUrl").textContent = TEACHER;
-  apply(norm(new URLSearchParams(location.search).get("room")));
-
-  document.getElementById("applyBtn").onclick = function () {
-    var c = norm(document.getElementById("codeIn").value), msg = document.getElementById("setupMsg");
-    if (c && c.length !== 6) { msg.textContent = "6자리를 넣어 주세요."; return; }
-    msg.textContent = c ? "학생 QR에 학급코드를 넣었어요." : "학급코드 없이 첫 화면으로 가는 QR이에요.";
-    apply(c);
-  };
-  document.getElementById("codeIn").onkeydown = function (e) { if (e.key === "Enter") document.getElementById("applyBtn").click(); };
-  document.getElementById("printBtn").onclick = function () { window.print(); };
+  draw("qrStu", "https://app-84b43.web.app/");
+  draw("qrTea", "https://app-84b43.web.app/teacher.html");
 })();
 </script>
 </body>
