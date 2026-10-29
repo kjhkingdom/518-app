@@ -1,0 +1,4 @@
+# 배포 도구가 만드는 임시 파일
+.firebase/
+*.log
+node_modules/

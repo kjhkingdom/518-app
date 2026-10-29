@@ -1,0 +1,35 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function isTeacher() { return signedIn() && request.auth.token.firebase.sign_in_provider != 'anonymous'; }
+    function room(code) { return get(/databases/$(database)/documents/rooms/$(code)).data; }
+    function ownsRoom(code) { return signedIn() && room(code).ownerUid == request.auth.uid; }
+
+    match /rooms/{code} {
+      // 학생은 학급코드로 방 하나만 확인할 수 있고, 방 목록은 볼 수 없음
+      allow get: if signedIn();
+      allow list: if isTeacher() && resource.data.ownerUid == request.auth.uid;
+      allow create: if isTeacher()
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.keys().hasOnly(['code', 'title', 'ownerUid', 'open', 'createdAt'])
+        && request.resource.data.code == code
+        && request.resource.data.title is string && request.resource.data.title.size() <= 40
+        && request.resource.data.open == true;
+      allow update: if isTeacher() && resource.data.ownerUid == request.auth.uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['open', 'title']);
+      allow delete: if isTeacher() && resource.data.ownerUid == request.auth.uid;
+
+      match /students/{sid} {
+        // 학생은 자기 기록만 쓰고 읽음, 교사(방 주인)는 방의 모든 기록을 읽고 지움
+        allow read: if signedIn() && (request.auth.uid == sid || ownsRoom(code));
+        allow create, update: if signedIn() && request.auth.uid == sid
+          && room(code).open == true
+          && request.resource.data.keys().hasOnly(['number', 'nickname', 'joinedAt', 'updatedAt', 'current', 'done', 'stamps', 'results', 'writing', 'postcard', 'finished'])
+          && request.resource.data.number is int && request.resource.data.number >= 1 && request.resource.data.number <= 99
+          && request.resource.data.nickname is string && request.resource.data.nickname.size() >= 1 && request.resource.data.nickname.size() <= 10;
+        allow delete: if ownsRoom(code);
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "firestore": { "rules": "firestore.rules" },
+  "hosting": {
+    "public": ".",
+    "ignore": ["firebase.json", "firestore.rules", "**/.*", "**/*.md", "**/*.log", "**/node_modules/**", "tests/**", "app.html"],
+    "headers": [{ "source": "**/*.@(mp3|webp)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800" }] }]
+  },
+  "emulators": { "auth": { "port": 9099 }, "firestore": { "port": 8080 }, "hosting": { "port": 5000 }, "ui": { "enabled": false } }
+}

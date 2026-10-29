@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>오월의 기록 탐험대 안내</title>
+<meta name="description" content="초등 5~6학년 5·18민주화운동 탐구 웹앱 오월의 기록 탐험대 사용 안내">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #eef3ee; --card: #ffffff; --ink: #1b2c24; --muted: #56685e; --line: #cfdad2;
+  --leaf: #2d6a4c; --leaf-soft: #dcebe1; --stamp: #b3372b; --stamp-soft: #f6e1dc;
+  --gold: #c98a12; --gold-soft: #f8ecd0;
+  --display: "Gowun Batang", serif; --body: "Gowun Dodum", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.7; }
+.wrap { max-width: 920px; margin: 0 auto; padding: 28px 16px 56px; }
+a { color: var(--leaf); }
+
+.hero { display: flex; align-items: center; gap: 18px; }
+.hero img { width: 120px; height: auto; flex: none; }
+.hero h1 { font-family: var(--display); font-size: 34px; line-height: 1.25; margin: 0 0 6px; color: var(--leaf); }
+.hero p { margin: 0; color: var(--muted); font-size: 15px; }
+
+.btns { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0; }
+.btn { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 8px 18px; border-radius: 12px; border: 2px solid var(--leaf); background: var(--leaf); color: #fff; font: inherit; font-weight: 700; font-size: 16px; text-decoration: none; cursor: pointer; }
+.btn.ghost { background: var(--card); color: var(--leaf); }
+.btn.sm { min-height: 38px; padding: 4px 12px; font-size: 14px; border-radius: 10px; }
+
+.files { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.file { display: flex; align-items: center; gap: 12px; background: var(--card); border: 2px solid var(--leaf-soft); border-radius: 16px; padding: 14px 16px; }
+.file .ic { font-size: 30px; }
+.file b { display: block; font-size: 18px; }
+.file small { color: var(--muted); font-size: 13px; line-height: 1.4; display: block; }
+.file .grow { flex: 1; min-width: 0; }
+.file .acts { display: flex; flex-direction: column; gap: 6px; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0; }
+.chips a { padding: 6px 14px; border-radius: 999px; background: var(--leaf-soft); color: var(--leaf); font-weight: 700; font-size: 14px; text-decoration: none; }
+
+section { background: var(--card); border-radius: 18px; padding: 24px 24px 20px; margin-top: 16px; border: 1px solid var(--line); scroll-margin-top: 12px; }
+h2 { font-family: var(--display); font-size: 24px; margin: 0 0 12px; color: var(--ink); }
+h3 { font-size: 18px; margin: 18px 0 8px; }
+p { margin: 0 0 10px; }
+.muted { color: var(--muted); font-size: 15px; }
+
+table { width: 100%; border-collapse: collapse; font-size: 15px; margin: 8px 0 12px; }
+th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { background: var(--leaf-soft); color: var(--leaf); font-weight: 700; }
+.tbl { overflow-x: auto; }
+
+.missions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 6px 0 12px; }
+.mission { border: 2px solid var(--leaf-soft); border-radius: 14px; overflow: hidden; background: #fbfcf8; }
+.mission img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
+.mission div { padding: 10px 12px; }
+.mission span { color: var(--stamp); font-weight: 700; font-size: 13px; }
+.mission b { display: block; font-size: 16px; line-height: 1.35; }
+.mission small { color: var(--muted); font-size: 13px; line-height: 1.45; display: block; margin-top: 4px; }
+
+ol.steps { margin: 6px 0 10px; padding-left: 0; list-style: none; counter-reset: s; }
+ol.steps li { counter-increment: s; position: relative; padding: 6px 0 6px 40px; }
+ol.steps li::before { content: counter(s); position: absolute; left: 0; top: 6px; width: 28px; height: 28px; border-radius: 50%; background: var(--leaf); color: #fff; font-weight: 700; font-size: 14px; display: grid; place-items: center; }
+ul.dots { margin: 6px 0 10px; padding-left: 20px; }
+ul.dots li { margin: 4px 0; }
+
+.tip { background: var(--gold-soft); border-radius: 12px; padding: 10px 14px; font-size: 15px; margin: 10px 0 0; }
+.warn { background: var(--stamp-soft); border-radius: 12px; padding: 10px 14px; font-size: 15px; margin: 10px 0 0; }
+.urls { display: grid; gap: 6px; font-size: 15px; }
+.urls code { font-family: inherit; font-weight: 700; color: var(--leaf); word-break: break-all; }
+
+footer { text-align: center; color: var(--muted); font-size: 13px; margin-top: 28px; }
+
+@media (max-width: 760px) {
+  .hero { gap: 12px; }
+  .hero img { width: 72px; }
+  .hero h1 { font-size: 23px; word-break: keep-all; }
+  .files { grid-template-columns: 1fr; }
+  .missions { grid-template-columns: 1fr 1fr; }
+  section { padding: 20px 16px 16px; }
+}
+@media (max-width: 420px) {
+  .file { flex-wrap: wrap; }
+  .file .acts { flex-direction: row; width: 100%; }
+}
+@media print {
+  body { background: #fff; font-size: 14px; }
+  .btns, .chips, .file .acts { display: none; }
+  section { border: none; padding: 8px 0; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <img src="images/bomi-wave.webp" alt="안내 캐릭터 봄이">
+    <div>
+      <h1>오월의 기록 탐험대 안내</h1>
+      <p>기록을 따라 오월 광주를 탐험해요 · 초등 5~6학년 5·18민주화운동 탐구 웹앱</p>
+    </div>
+  </header>
+
+  <div class="btns">
+    <a class="btn" href="index.html">🧭 앱으로 가기</a>
+    <button class="btn ghost" type="button" onclick="window.print()">🖨️ 인쇄하기</button>
+  </div>
+
+  <div class="files">
+    <div class="file">
+      <span class="ic" aria-hidden="true">📝</span>
+      <div class="grow"><b>학습지</b><small>미션 1~4 문제, 기억 엽서 초안, 스스로 평가 · 마지막 쪽은 교사용 정답</small></div>
+      <div class="acts">
+        <a class="btn sm" href="docs/worksheet.pdf" target="_blank" rel="noopener">PDF 보기</a>
+        <a class="btn sm ghost" href="docs/worksheet.docx" download="오월의기록탐험대_학습지.docx">워드 파일</a>
+      </div>
+    </div>
+    <div class="file">
+      <span class="ic" aria-hidden="true">📋</span>
+      <div class="grow"><b>수업지도안</b><small>40분 1차시 · 교수·학습 과정, 평가 계획, 돌발 상황 대처</small></div>
+      <div class="acts">
+        <a class="btn sm" href="docs/lesson-plan.pdf" target="_blank" rel="noopener">PDF 보기</a>
+        <a class="btn sm ghost" href="docs/lesson-plan.docx" download="오월의기록탐험대_수업지도안.docx">워드 파일</a>
+      </div>
+    </div>
+  </div>
+
+  <nav class="chips" aria-label="안내 목차">
+    <a href="#about">🗺️ 앱 소개</a>
+    <a href="#student">🧒 학생 안내</a>
+    <a href="#teacher">🧑‍🏫 선생님 안내</a>
+    <a href="#notice">⚠️ 주의사항</a>
+  </nav>
+
+  <section id="about">
+    <h2>🗺️ 앱 소개</h2>
+    <p>학생이 <b>기록연구원</b>이 되어 5·18민주화운동 자료를 읽고 듣고, 4개 미션을 풀며 <b>나의 기록장</b>과 <b>기억 엽서</b>를 완성하는 웹앱입니다. 선생님은 학급방을 만들어 학생들의 진행과 답을 수업 중에 바로 확인합니다.</p>
+    <div class="tbl"><table>
+      <tr><th>대상</th><td>초등 5~6학년 · 사회, 도덕, 창의적 체험활동(5·18 계기 교육)</td></tr>
+      <tr><th>시간</th><td>앱 활동 25~30분 (도입·나눔 포함 40분 1차시)</td></tr>
+      <tr><th>환경</th><td>태블릿·크롬북·PC·휴대폰의 인터넷 브라우저 (설치 필요 없음)</td></tr>
+    </table></div>
+    <div class="urls">
+      <div>학생 주소 <code>https://app-84b43.web.app</code></div>
+      <div>선생님 주소 <code>https://app-84b43.web.app/#teacher</code></div>
+    </div>
+  </section>
+
+  <section id="missions">
+    <h2>🔎 4개 미션</h2>
+    <p class="muted">자료 카드는 그림·글·나레이션으로 함께 나와요. 문제를 틀리면 자료를 다시 읽고 다시 도전해요.</p>
+    <div class="missions">
+      <div class="mission"><img src="images/street-gathering.webp" alt=""><div><span>미션 1</span><b>오월의 시간 찾기</b><small>일어난 까닭과 열흘의 흐름 · OX, 순서 맞추기</small></div></div>
+      <div class="mission"><img src="images/reporter.webp" alt=""><div><span>미션 2</span><b>기록 속 단서 찾기</b><small>외로운 섬 광주와 진실을 알린 기록 · 근거 찾기</small></div></div>
+      <div class="mission"><img src="images/bus-citizens.webp" alt=""><div><span>미션 3</span><b>함께한 시민들</b><small>주먹밥·헌혈·소식지, 스스로 지킨 질서 · 짝 잇기</small></div></div>
+      <div class="mission"><img src="images/candlelight.webp" alt=""><div><span>미션 4</span><b>오늘의 민주주의</b><small>진실이 밝혀진 과정과 우리 반의 실천 · 생각 쓰기</small></div></div>
+    </div>
+    <p class="muted">마지막에는 오월 정신(민주주의·저항·인권·공동체·참여)을 골라 <b>기억 엽서</b>를 만들고 이미지로 저장해요.</p>
+  </section>
+
+  <section id="student">
+    <h2>🧒 학생 안내</h2>
+    <ol class="steps">
+      <li>선생님이 보여 주는 <b>QR 코드</b>를 찍거나 학생 주소로 들어가요.</li>
+      <li><b>학급 코드 6글자</b>, <b>번호</b>, <b>별명</b>을 넣고 학급방으로 들어가요. 🙈 진짜 이름 말고 별명으로!</li>
+      <li>봄이의 안내를 듣고, 미션 지도에서 미션 1부터 차례로 해결해요.</li>
+      <li>네 미션을 마치면 기록장을 보고 기억 엽서를 만들어 저장해요.</li>
+    </ol>
+    <p class="tip">🎧 이어폰을 끼면 나레이션을 들으며 탐험할 수 있어요. 기기를 친구와 같이 쓰면 끝난 뒤 <b>다음 친구를 위해 나가기</b>를 눌러 주세요.</p>
+  </section>
+
+  <section id="teacher">
+    <h2>🧑‍🏫 선생님 안내</h2>
+    <h3>1. 학급방 만들기</h3>
+    <ol class="steps">
+      <li>첫 화면에서 <b>선생님</b> 탭을 누르고, 안내를 읽은 뒤 동의에 체크하고 Google로 로그인합니다.</li>
+      <li><b>새 학급방 만들기</b>에 방 이름을 넣으면 학급 코드 6글자와 QR이 생깁니다.</li>
+      <li><b>QR 크게 띄우기</b>로 TV에 띄워 학생들이 들어오게 합니다.</li>
+    </ol>
+    <h3>2. 수업 중 살펴보기</h3>
+    <div class="tbl"><table>
+      <tr><th>탭</th><th>볼 수 있는 내용</th></tr>
+      <tr><td>진행 현황</td><td>학생별 스탬프, 지금 위치, 활동 중 표시 · <b>자세히</b>로 한 학생의 결과 보기</td></tr>
+      <tr><td>문항 분석</td><td>문제별 한 번에 맞힌 비율, 평균 다시 도전 횟수 — 어려워한 문제를 함께 다시 봐요</td></tr>
+      <tr><td>학생 글</td><td>생각 쓰기 답과 기억 엽서 — 나눔 시간에 소개해요</td></tr>
+    </table></div>
+    <h3>3. 마무리</h3>
+    <ul class="dots">
+      <li>활동이 끝나면 <b>입장 마감하기</b>를 누릅니다.</li>
+      <li>필요한 결과는 <b>결과 내려받기 (CSV)</b>로 받고, 늦어도 학기 말에는 <b>방과 기록 지우기</b>로 지웁니다.</li>
+    </ul>
+  </section>
+
+  <section id="class">
+    <h2>📚 수업에 활용하기</h2>
+    <div class="tbl"><table>
+      <tr><th>단계</th><th>활동</th><th>시간</th></tr>
+      <tr><td>도입</td><td>이팝꽃·주먹밥 이야기로 궁금증 열기, QR로 입장</td><td>5분</td></tr>
+      <tr><td>전개</td><td>미션 1·2 → 문항 분석으로 함께 점검 → 미션 3·4</td><td>27분</td></tr>
+      <tr><td>정리</td><td>기억 엽서 만들기, 우리 반 실천 약속 나누기</td><td>8분</td></tr>
+    </table></div>
+    <p class="muted">자세한 과정은 수업지도안, 활동 정리는 학습지를 참고하세요. 시간이 모자라면 미션 4와 엽서는 다음 시간에 <b>이어서 탐험하기</b>로 이어 할 수 있어요.</p>
+  </section>
+
+  <section id="notice">
+    <h2>⚠️ 주의사항</h2>
+    <ul class="dots">
+      <li>학생은 로그인 없이 <b>번호와 별명</b>만 씁니다. 이름·전화번호·사진은 받지 않습니다.</li>
+      <li>선생님 Google 로그인은 본인 확인용이며, 이름과 사진은 바로 지우고 메일 주소는 학급방·학생 기록에 저장하지 않습니다.</li>
+      <li>학급방 기록은 그 방을 만든 선생님만 볼 수 있습니다. 앱을 그만 쓸 때는 <b>내 계정 지우기</b>로 한 번에 지울 수 있습니다.</li>
+      <li>앱에는 광고·결제·외부 AI 연결이 없습니다.</li>
+      <li>폭력 장면보다 시민들이 지킨 가치에 초점을 두고, 힘들어하는 학생은 쉬어 가게 해 주세요.</li>
+    </ul>
+    <p class="warn">🎨 앱의 그림과 나레이션 일부는 생성형 AI로 제작했으며, 사건 그림에는 실제 사건을 바탕으로 생성형 AI로 제작한 이미지임을 표시했습니다.</p>
+  </section>
+
+  <footer>오월의 기록 탐험대 · 초등 5·18민주화운동 교육 웹앱</footer>
+</div>
+</body>
+</html>
