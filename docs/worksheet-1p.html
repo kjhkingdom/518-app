@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>오월의 기록 탐험대 · 학습지</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+<style>
+/* 한 장 학습지: 제목 띠 → 이름 칸 → 탐구 질문 → 미션 1~4 핵심 활동 → 정리하기(엽서 초안·스스로 평가). A4 세로 한 장 */
+@page { size: A4 portrait; margin: 0; }
+:root { --g: #1f6b47; --g2: #2d8a5c; --gs: #e8f3ec; --line: #9fbfac; --ink: #222; --mute: #666; --q: #fff7e6; --qb: #e7c98a; --qt: #a0660a; --red: #b3372b; }
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { font-family: "Noto Sans KR", "Malgun Gothic", sans-serif; color: var(--ink); font-size: 11px; line-height: 1.5; word-break: keep-all; -webkit-print-color-adjust: exact; print-color-adjust: exact; background: #ddd; }
+.page { width: 210mm; height: 297mm; margin: 0 auto; background: #fff; padding: 11mm 13mm 8mm; display: flex; flex-direction: column; gap: 3mm; overflow: hidden; }
+@media screen { .page { margin: 16px auto; box-shadow: 0 2px 10px rgba(0,0,0,.15); } }
+.top { display: flex; align-items: flex-end; justify-content: space-between; border-bottom: 2px solid var(--g2); padding-bottom: 1.8mm; }
+.badge { display: inline-block; background: var(--g2); color: #fff; font-weight: 700; font-size: 10px; padding: 1px 10px; border-radius: 999px; }
+h1 { margin: 1.2mm 0 .4mm; font-size: 21px; font-weight: 900; color: var(--g); letter-spacing: -.02em; }
+.goal { font-size: 10px; color: var(--mute); margin: 0; }
+.brand { font-size: 10px; color: var(--g); font-weight: 700; display: flex; align-items: center; gap: 4px; }
+.brand svg { width: 13px; height: 13px; }
+table { width: 100%; border-collapse: collapse; }
+th, td { border: 1px solid var(--line); padding: 1.2mm 2mm; vertical-align: middle; }
+th { background: var(--gs); color: var(--g); font-weight: 700; text-align: center; white-space: nowrap; }
+.who td { height: 7mm; }
+.q { background: var(--q); border: 1px dashed var(--qb); border-radius: 2mm; padding: 1.4mm 3mm; font-weight: 500; }
+.q b { color: var(--qt); margin-right: 4px; }
+h2 { margin: 0; font-size: 13.5px; font-weight: 900; color: var(--g); display: flex; align-items: center; gap: 2mm; }
+h2 .n { width: 5.6mm; height: 5.6mm; border-radius: 50%; background: var(--g2); color: #fff; display: grid; place-items: center; font-size: 11px; }
+h2 small { font-size: 10px; color: var(--mute); font-weight: 500; }
+.sec { display: grid; gap: 1.4mm; }
+.how { font-size: 10px; color: var(--mute); margin: 0; }
+/* 미션 1: 날짜 칸 */
+.dates td { text-align: center; height: 7.4mm; }
+.dates th { font-size: 10px; }
+.events { display: grid; grid-template-columns: 1fr 1fr; gap: .6mm 5mm; font-size: 10.5px; }
+.events b { color: var(--g); margin-right: 3px; }
+/* 미션 2: 체크 문장 */
+.checks { display: grid; grid-template-columns: 1fr 1fr; gap: .8mm 5mm; font-size: 10.5px; }
+.checks span::before { content: "□ "; color: var(--g); font-weight: 700; }
+.fill { font-size: 10.5px; margin: 0; }
+.blank { display: inline-block; border-bottom: 1px solid #555; min-width: 70mm; height: 1em; vertical-align: -2px; }
+.blank.s { min-width: 40mm; }
+.blank.l { min-width: 128mm; }
+/* 미션 3: 선 잇기 */
+.match { display: grid; grid-template-columns: 1fr 14mm 1fr; align-items: center; gap: 1mm 0; }
+.box { border: 1px solid #555; border-radius: 2mm; padding: .6mm 2.4mm; text-align: center; font-size: 10.5px; }
+.dots { display: flex; justify-content: space-between; padding: 0 1mm; }
+.dots i { width: 2.2mm; height: 2.2mm; border-radius: 50%; background: #555; }
+/* 미션 4: 연도 */
+.years { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2mm; }
+.years div { border: 1px solid var(--line); border-radius: 2mm; text-align: center; padding: 1mm; font-weight: 700; color: var(--g); }
+.years div span { color: var(--ink); font-weight: 400; }
+.opts { display: grid; grid-template-columns: 1fr 1fr; gap: .4mm 5mm; font-size: 10.5px; }
+.opts b { color: var(--g); margin-right: 3px; }
+/* 정리 */
+.wrap { border: 1.5px dashed var(--g2); border-radius: 3mm; padding: 2.2mm 3.4mm; display: grid; gap: 2.6mm; }
+.wrap h3 { margin: 0; font-size: 12.5px; color: var(--g); font-weight: 900; }
+.spirit { display: flex; gap: 2mm; flex-wrap: wrap; font-size: 10.5px; }
+.spirit span { border: 1px solid var(--line); border-radius: 999px; padding: .3mm 3mm; }
+.spirit b { color: var(--g); }
+.self th:first-child { text-align: center; }
+.self td { font-size: 10.5px; }
+.self td.star { text-align: center; letter-spacing: 3px; color: #999; width: 26mm; font-size: 13px; }
+.foot { margin-top: auto; display: flex; justify-content: space-between; font-size: 9px; color: var(--mute); }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="top">
+    <div><span class="badge">5·18민주화운동 · 1차시</span><h1>오월의 기록 탐험대 학습지</h1>
+      <p class="goal">학습 목표 · 5·18민주화운동의 까닭과 흐름을 알고, 시민들의 행동에 담긴 가치를 우리 반의 실천 약속으로 나타낼 수 있어요.</p></div>
+    <div class="brand"><svg viewBox="0 0 48 48" aria-hidden="true"><g fill="#fff" stroke="#1f6b47" stroke-width="3"><circle cx="24" cy="13" r="7"/><circle cx="14" cy="21" r="7"/><circle cx="34" cy="21" r="7"/><circle cx="18" cy="31" r="7"/><circle cx="30" cy="31" r="7"/></g><circle cx="24" cy="23" r="4" fill="#c98a1a"/></svg>오월의 기록 탐험대</div>
+  </header>
+
+  <table class="who"><tr><th>학년 반</th><td>&nbsp;&nbsp;&nbsp;&nbsp;학년&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;반</td><th>번호</th><td style="width:22mm"></td><th>탐험대 별명</th><td style="width:44mm"></td></tr></table>
+
+  <div class="q"><b>탐구 질문</b>기록 속 단서는 1980년 5월 광주의 열흘에 대해 무엇을 알려 줄까요?</div>
+
+  <section class="sec">
+    <h2><span class="n">1</span>오월의 시간 찾기 <small>미션 1 · 열흘의 흐름</small></h2>
+    <p class="how">사건이 일어난 날짜 칸에 알맞은 기호를 써 보세요.</p>
+    <table class="dates"><tr><th>5월 17일 밤</th><th>5월 18일</th><th>5월 20일</th><th>5월 21일</th><th>5월 27일 새벽</th></tr><tr><td></td><td></td><td></td><td></td><td></td></tr></table>
+    <div class="events">
+      <span><b>ㄱ</b>계엄군이 시민에게 총을 쏜 뒤 시민군이 만들어졌어요.</span>
+      <span><b>ㄴ</b>전남대학교 정문 앞에서 학생들이 계엄군에게 항의했어요.</span>
+      <span><b>ㄷ</b>계엄군이 다시 들어와 전남도청을 진압했어요.</span>
+      <span><b>ㄹ</b>비상계엄이 전국으로 넓어지고 대학교에 휴교령이 내려졌어요.</span>
+      <span><b>ㅁ</b>버스·택시 기사들이 차를 몰고 함께 시위했어요.</span>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2><span class="n">2</span>기록 속 단서 찾기 <small>미션 2 · 막힌 소식, 남은 기록</small></h2>
+    <p class="how">광주가 ‘외로운 섬’ 같았던 까닭을 보여 주는 문장 3개에 ✓ 하세요.</p>
+    <div class="checks">
+      <span>① 광주에서 다른 지역으로 거는 시외 전화가 모두 끊겼어요.</span>
+      <span>② 시민들은 도청 앞 분수대에 모여 의견을 나누었어요.</span>
+      <span>③ 다른 도시로 가는 시외버스가 다니지 않았어요.</span>
+      <span>④ 버스·택시 기사들이 경적을 울리며 함께 시위했어요.</span>
+      <span>⑤ 신문과 방송은 광주의 일을 제대로 보도하지 않았어요.</span>
+      <span>⑥ 시민들은 거리를 청소하고 가게 문을 다시 열었어요.</span>
+    </div>
+    <p class="fill">→ 내가 고른 문장들은 모두 광주가 <span class="blank"></span> 것을 보여 줘요.</p>
+  </section>
+
+  <section class="sec">
+    <h2><span class="n">3</span>함께한 시민들 <small>미션 3 · 나눔과 질서</small></h2>
+    <p class="how">시민들의 행동과 그 행동에 담긴 뜻을 선으로 이어 보세요.</p>
+    <div class="match">
+      <div class="box">주먹밥을 만들어 나누었어요</div><div class="dots"><i></i><i></i></div><div class="box">막힌 소식 대신 진실을 알렸어요</div>
+      <div class="box">병원 앞에 줄을 서서 헌혈했어요</div><div class="dots"><i></i><i></i></div><div class="box">경찰이 없어도 스스로 질서를 지켰어요</div>
+      <div class="box">《투사회보》를 만들어 나누었어요</div><div class="dots"><i></i><i></i></div><div class="box">가진 것을 나누며 서로를 도왔어요</div>
+      <div class="box">거리를 청소하고 함께 토론했어요</div><div class="dots"><i></i><i></i></div><div class="box">모르는 이웃의 생명을 살리려 했어요</div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2><span class="n">4</span>오늘의 민주주의 <small>미션 4 · 기억과 실천</small></h2>
+    <p class="how">진실이 밝혀지기까지의 과정을 연도와 짝지어 기호를 쓰세요.</p>
+    <div class="years"><div>1988년 <span>(&nbsp;&nbsp;&nbsp;&nbsp;)</span></div><div>1995년 <span>(&nbsp;&nbsp;&nbsp;&nbsp;)</span></div><div>1997년 <span>(&nbsp;&nbsp;&nbsp;&nbsp;)</span></div><div>2011년 <span>(&nbsp;&nbsp;&nbsp;&nbsp;)</span></div></div>
+    <div class="opts">
+      <span><b>ㄱ</b>5·18 기록물이 유네스코 세계기록유산이 되었어요</span>
+      <span><b>ㄴ</b>국회 청문회에서 광주의 일을 다루었어요</span>
+      <span><b>ㄷ</b>5월 18일이 국가기념일이 되었어요</span>
+      <span><b>ㄹ</b>5·18 특별법이 만들어졌어요</span>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h3>정리하기 · 나의 기억 엽서 초안</h3>
+    <div class="spirit">내가 이어 갈 오월 정신에 ○ 하세요.
+      <span><b>민주주의</b> 국민 모두가 주인</span><span><b>저항</b> 부당한 힘에 맞서기</span><span><b>인권</b> 모든 사람의 소중한 권리</span><span><b>공동체</b> 서로 돕고 나누기</span><span><b>참여</b> 함께 목소리 내기</span>
+    </div>
+    <p class="fill">내가 기억할 것: <span class="blank l"></span></p>
+    <p class="fill">나는 우리 반에서 <span class="blank" style="min-width:96mm"></span> 을(를) 실천하겠습니다.</p>
+  </section>
+
+  <table class="self">
+    <tr><th>스스로 평가해요</th><th>☆ 색칠하기</th></tr>
+    <tr><td>5·18이 일어난 까닭과 열흘 동안의 흐름을 말할 수 있어요.</td><td class="star">☆☆☆</td></tr>
+    <tr><td>자료에서 근거가 되는 문장을 찾아 시민들의 행동에 담긴 뜻을 설명할 수 있어요.</td><td class="star">☆☆☆</td></tr>
+    <tr><td>배운 가치를 우리 반에서 실천할 약속으로 나타낼 수 있어요.</td><td class="star">☆☆☆</td></tr>
+  </table>
+
+  <footer class="foot"><span>오월의 기록 탐험대 · 1차시 학습지</span><span>별명과 글에는 진짜 이름이나 전화번호를 쓰지 않아요.</span></footer>
+</div>
+</body>
+</html>
